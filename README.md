@@ -1182,3 +1182,24 @@ User stories
 </table>
 
 </details>
+
+## Mockups
+<details>
+    <summary>Login page</summary>
+    ![Login page](https://github.com/IhorMruchko/CodeGenerator/assets/55592478/d0338133-32b0-4896-b15a-c025bc29de77?raw=true)
+
+</details>
+
+<details>
+    <summary>Project page</summary>
+    ![Project page](https://github.com/IhorMruchko/CodeGenerator/assets/55592478/cb78681e-49e0-4f8c-9470-f8412889f0e0?raw=true)
+
+</details>
+
+<details>
+    <summary>Project page</summary>
+    ![Error page](https://github.com/IhorMruchko/CodeGenerator/assets/55592478/98120b19-17c1-4868-95c1-25f843e29035?raw=true)
+
+</details>
+
+
