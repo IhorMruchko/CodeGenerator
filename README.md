@@ -1197,7 +1197,7 @@ User stories
 </details>
 
 <details>
-<summary>Project page</summary>
+<summary>Error page</summary>
 
 ![Error page](https://github.com/IhorMruchko/CodeGenerator/assets/55592478/98120b19-17c1-4868-95c1-25f843e29035?raw=true)
 </details>
