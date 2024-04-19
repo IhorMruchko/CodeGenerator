@@ -1206,20 +1206,23 @@ User stories
 <details>
 <summary>Smoke tests</summary>    
 
-[Smoke testing.pdf](https://github.com/IhorMruchko/CodeGenerator/files/15033493/Smoke.testing.pdf)
+[Smoke testing link](https://github.com/IhorMruchko/CodeGenerator/blob/master/Smoke%20testing.pdf) </br>
+[Smoke testing download](https://github.com/IhorMruchko/CodeGenerator/files/15033493/Smoke.testing.pdf)
 
 </details>
 
 <details>
 <summary>Manual testing</summary>    
 
-[Manual testing.pdf](https://github.com/IhorMruchko/CodeGenerator/files/15033497/Manual.testing.pdf)
+[Manual testing link](https://github.com/IhorMruchko/CodeGenerator/blob/master/Manual%20testing.pdf)  </br>
+[Manual testing download](https://github.com/IhorMruchko/CodeGenerator/files/15033497/Manual.testing.pdf)
 
 </details>
 
 <details>
 <summary>List of found defects</summary>    
 
-[List of found defects.pdf](https://github.com/IhorMruchko/CodeGenerator/files/15033499/List.of.found.defects.pdf)
+[List of found defects link](https://github.com/IhorMruchko/CodeGenerator/blob/master/List%20of%20found%20defects.pdf)  </br>
+[List of found defects download](https://github.com/IhorMruchko/CodeGenerator/files/15033499/List.of.found.defects.pdf)
 
 </details>
