@@ -1202,4 +1202,24 @@ User stories
 ![Error page](https://github.com/IhorMruchko/CodeGenerator/assets/55592478/98120b19-17c1-4868-95c1-25f843e29035?raw=true)
 </details>
 
+## Testing
+<details>
+<summary>Smoke tests</summary>    
 
+[Smoke testing.pdf](https://github.com/IhorMruchko/CodeGenerator/files/15033493/Smoke.testing.pdf)
+
+</details>
+
+<details>
+<summary>Manual testing</summary>    
+
+[Manual testing.pdf](https://github.com/IhorMruchko/CodeGenerator/files/15033497/Manual.testing.pdf)
+
+</details>
+
+<details>
+<summary>List of found defects</summary>    
+
+[List of found defects.pdf](https://github.com/IhorMruchko/CodeGenerator/files/15033499/List.of.found.defects.pdf)
+
+</details>
