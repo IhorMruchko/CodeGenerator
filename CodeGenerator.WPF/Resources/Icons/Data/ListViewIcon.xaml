@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="ListViewIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V52 H52 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M52,52z M0,0z M43.57,4L2,4A2,2,0,0,1,2,0L43.57,0A2,2,0,0,1,43.57,4z" />
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M52,52z M0,0z M43.57,16L2,16A2,2,0,0,1,2,12L43.57,12A2,2,0,0,1,43.57,16z" />
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M52,52z M0,0z M43.57,28L2,28A2,2,0,0,1,2,24L43.57,24A2,2,0,0,1,43.57,28z" />
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M52,52z M0,0z M39.29,40L6.29,40A2,2,0,1,1,6.29,36L39.29,36A2,2,0,0,1,39.29,40z" />
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M52,52z M0,0z M35,52L10.57,52A2,2,0,0,1,10.57,48L35,48A2,2,0,0,1,35,52z" />
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M52,52z M0,0z M50,52A2,2,0,0,1,48,50L48,2A2,2,0,0,1,52,2L52,50A2,2,0,0,1,50,52z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

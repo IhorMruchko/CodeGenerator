@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\ProjectsListView.xaml\**" />
+    <EmbeddedResource Remove="Views\ProjectsListView.xaml\**" />
+    <None Remove="Views\ProjectsListView.xaml\**" />
+    <Page Remove="Views\ProjectsListView.xaml\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WindowsAPICodePack" Version="7.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGenerator.LIB\CodeGenerator.LIB.csproj" />
+    <ProjectReference Include="..\CodeGenerator.WPF.LIB\CodeGenerator.WPF.LIB.csproj" />
+  </ItemGroup>
+
+</Project>

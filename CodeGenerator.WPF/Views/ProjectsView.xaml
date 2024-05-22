@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="CodeGenerator.WPF.Views.ProjectsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeGenerator.WPF.Views"
+             xmlns:constatnts="clr-namespace:CodeGenerator.WPF.Resources.Constants"
+             xmlns:pvm="clr-namespace:CodeGenerator.WPF.ViewModels.ProjectViewModels"
+             xmlns:cc="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <pvm:ProjectsViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0"
+                   LastChildFill="False">
+            <Label DockPanel.Dock="Left" Content="Projects"/>
+            <cc:IconButton DockPanel.Dock="Right" 
+                           Icon="{StaticResource ListViewIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding ProjectDisplayLayout.SelectConcreteCommand}"
+                           CommandParameter="{x:Type pvm:ProjectsListViewModel}"
+                           CornerRadius="50"
+                           ToolTip="List View"
+                           Visibility="{x:Static constatnts:Constants.COMPONENT_VISIBILITY}"/>
+
+            <cc:IconButton DockPanel.Dock="Right" Icon="{StaticResource GridViewIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding ProjectDisplayLayout.SelectConcreteCommand}"
+                           CommandParameter="{x:Type pvm:ProjectGridViewModel}"
+                           CornerRadius="50"
+                           ToolTip="Grid View"
+                           Visibility="{x:Static constatnts:Constants.COMPONENT_VISIBILITY}"/>
+        </DockPanel>
+
+        <ContentControl Grid.Row="1"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding ProjectDisplayLayout.SelectedViewModel}"/>
+
+        <DockPanel Grid.Row="2"
+                   LastChildFill="False"
+                   HorizontalAlignment="Center">
+            <cc:IconButton Icon="{StaticResource AddProjectIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding AddProject}"
+                           CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"
+                           CornerRadius="10 10 0 0"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

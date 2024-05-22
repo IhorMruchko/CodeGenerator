@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="OpenFolderIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V48 H48 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup Opacity="1">
+                        <GeometryDrawing Geometry="F1 M48,48z M0,0z M41.6801,13.015L24.7701,13.015C22.7701,12.915,18.8401,8.785,16.5801,8.785L6.6801,8.785C5.4761,8.7847 4.4998,9.7604 4.4995,10.9644 4.4995,10.9813 4.4997,10.9981 4.5001,11.015L4.5001,11.015 4.5001,18.305 43.5001,18.305 43.5001,14.885C43.5222,13.8746 42.721,13.0375 41.7106,13.0154 41.7004,13.0152 41.6903,13.015 41.6801,13.015z">
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="3" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Geometry="F1 M48,48z M0,0z M4.5001,18.295L4.5001,37.015C4.489,38.2189 5.4561,39.2039 6.66,39.2149 6.6634,39.2149 6.6667,39.2149 6.6701,39.2149L41.3201,39.2149C42.5241,39.2149 43.5001,38.239 43.5002,37.035 43.5002,37.0283 43.5002,37.0216 43.5002,37.0149L43.5002,37.0149 43.5002,18.2949">
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="3" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                    <DrawingGroup Opacity="1">
+                        <GeometryDrawing>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="3" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="4.3727" RadiusY="4.3727" Center="35.2672,27.6127" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="3" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <LineGeometry StartPoint="32.1752,30.7046" EndPoint="28.6398,34.24" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

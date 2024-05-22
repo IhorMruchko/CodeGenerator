@@ -1,0 +1,69 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers">
+
+
+    <Style TargetType="{x:Type local:MenuButton}" 
+           BasedOn="{StaticResource ResourceKey={x:Type Button}}">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <DockPanel Width="{Binding RelativeSource={RelativeSource AncestorType=DockPanel, Mode=FindAncestor}, Path=Width}">
+                        <Image Source="{Binding Path=Icon, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               Height="{Binding Path=Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               Width="30"/>
+                        <Label Content="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               HorizontalContentAlignment="Center"
+                               Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               FontFamily="{Binding Path=FontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               FontSize="{Binding Path=FontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               FontStretch="{Binding Path=FontStretch, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               FontStyle="{Binding Path=FontStyle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               FontWeight="{Binding Path=FontWeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
+                               VerticalContentAlignment="Center"/>
+                    </DockPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MenuButton}">
+                    <Border x:Name="ContentContainer"
+                            Background="{StaticResource Button.Static.Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <ContentPresenter Focusable="False" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter Property="BorderBrush"
+                                    TargetName="ContentContainer"
+                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" 
+                                    TargetName="ContentContainer"
+                                    Value="{DynamicResource Button.MouseOver.Background}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background"
+                                    TargetName="ContentContainer"
+                                    Value="{DynamicResource Button.Pressed.Background}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

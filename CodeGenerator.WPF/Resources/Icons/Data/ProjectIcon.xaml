@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="ProjectIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V400.00001 H400 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-652.36216">
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M400,400.00001z M0,0z M237.4297,701.86214L237.4297,741.86214 51.4297,741.86214 51.4297,791.55354 0,791.55354 0,1002.8622 400,1002.8622 400,702.86214 400,701.86214 262.4297,701.86214z M262.4297,726.86214L375,726.86214 375,977.86214 325,977.86214 325,792.44214 324.8379,792.44214 324.8379,791.55354 76.4297,791.55354 76.4297,766.86214 262.4297,767.80744z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

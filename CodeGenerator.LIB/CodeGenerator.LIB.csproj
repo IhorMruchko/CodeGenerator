@@ -1,7 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net60</TargetFrameworks>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Generation\" />
+    <Folder Include="ProgramingLanguages\CSharpProgramingLanguage\Versions\NetStandard2\Features\" />
+    <Folder Include="ProgramingLanguages\CSharpProgramingLanguage\Versions\NetStandard2\Parsers\" />
+    <Folder Include="Utils\Databases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
 
 </Project>

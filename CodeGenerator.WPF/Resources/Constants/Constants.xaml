@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    xmlns:constants="clr-namespace:CodeGenerator.WPF.Resources.Constants">
+    <s:Boolean x:Key="True">True</s:Boolean>
+    <s:Boolean x:Key="False">False</s:Boolean>
+    <s:Double x:Key="ProjectListViewSpacing">-15</s:Double>
+    <s:Double x:Key="HeaderHeight">-30</s:Double>
+</ResourceDictionary>

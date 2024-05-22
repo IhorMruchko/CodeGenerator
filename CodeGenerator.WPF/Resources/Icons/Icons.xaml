@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Data/ExitIcon.xaml"/>
+        <ResourceDictionary Source="Data/ProjectIcon.xaml"/>
+        <ResourceDictionary Source="Data/ListViewIcon.xaml"/>
+        <ResourceDictionary Source="Data/GridViewIcon.xaml"/>
+        <ResourceDictionary Source="Data/AddProjectIcon.xaml"/>
+        <ResourceDictionary Source="Data/CloseIcon.xaml"/>
+        <ResourceDictionary Source="Data/OpenFolderIcon.xaml"/>
+        <ResourceDictionary Source="Data/DeleteFolderIcon.xaml"/>
+        <ResourceDictionary Source="Data/EditFolderIcon.xaml"/>
+        <ResourceDictionary Source="Data/ViewFolderIcon.xaml"/>
+        <ResourceDictionary Source="Data/MinimizeIcon.xaml"/>
+        <ResourceDictionary Source="Data/NormalScreenIcon.xaml"/>
+        <ResourceDictionary Source="Data/FullScreenIcon.xaml"/>
+        <ResourceDictionary Source="Data/AddFileIcon.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
