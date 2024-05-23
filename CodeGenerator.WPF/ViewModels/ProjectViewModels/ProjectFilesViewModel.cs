@@ -8,7 +8,9 @@ namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
 public class ProjectFilesViewModel : ViewModel
 {
-    private Project? _source; 
+    private Project? _source;
+
+    private ObservableCollection<string> _files;
     
     public Project? Source 
     {
@@ -23,5 +25,13 @@ public class ProjectFilesViewModel : ViewModel
         }
     }
 
-    public ObservableCollection<string> FileNames { get; set; } = new (Array.Empty<string>());
+    public ObservableCollection<string> FileNames 
+    { 
+        get => _files; 
+        set 
+        {
+            _files = value;
+            OnPropertyChanged();
+        } 
+    }
 }

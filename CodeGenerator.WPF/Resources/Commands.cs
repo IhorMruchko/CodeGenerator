@@ -115,6 +115,7 @@ public static class Commands
         createFileDialog.DialogSuccess += () =>
         {
             File.Create(Path.Combine(createFileDialog.Directory, createFileDialog.FileName + createFileDialog.FileExtension));
+            pfvm.FileNames = new(Directory.GetFiles(dir));
         };
 
         OpenDialog(new object[] {mv, createFileDialog});
