@@ -1,15 +1,8 @@
-﻿using CodeGenerator.WPF.LIB.Base;
+﻿using CodeGenerator.WPF.LIB.ViewModels;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
-public class ProjectsGridViewModel : ProjectsViewModelBase
+public class ProjectsGridViewModel : ViewModel
 {
-    public ProjectsGridViewModel(ItemsObservableCollection<ProjectViewModel> projects) : base(projects)
-    {
-    }
 
-    protected override void ConvertObjects()
-    {
-        throw new System.NotImplementedException();
-    }
 }

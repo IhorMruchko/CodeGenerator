@@ -3,29 +3,38 @@
                     xmlns:views="clr-namespace:CodeGenerator.WPF.Views"
                     xmlns:projviewModels="clr-namespace:CodeGenerator.WPF.ViewModels.ProjectViewModels"
                     xmlns:baseVM ="clr-namespace:CodeGenerator.WPF.ViewModels.BaseModels"
-                    xmlns:filesVM="clr-namespace:CodeGenerator.WPF.ViewModels.FilesViewModels">
+                    xmlns:filesVM="clr-namespace:CodeGenerator.WPF.ViewModels.FilesViewModels"
+                    xmlns:templateSelectors="clr-namespace:CodeGenerator.WPF.Resources.TemplateSelectors">
     <DataTemplate DataType="{x:Type projviewModels:ProjectsViewModel}">
         <views:ProjectsView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type projviewModels:ProjectsListViewModel}">
+    <DataTemplate x:Key="ProjectsListViewTemplate" DataType="{x:Type projviewModels:ProjectsListViewModel}">
         <views:ProjectsListView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type projviewModels:ProjectsGridViewModel}">
+    <DataTemplate x:Key="ProjectsGridViewTemplate" DataType="{x:Type projviewModels:ProjectsGridViewModel}">
         <views:ProjectsGridView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type projviewModels:ProjectGridViewModel}">
+    <templateSelectors:ProjectsTemplateSelector x:Key="ProjectsTemplateSelector"
+                                                ProjectsListViewTemplate="{StaticResource ProjectsListViewTemplate}"
+                                                ProjectsGridViewTemplate="{StaticResource ProjectsGridViewTemplate}"/>
+
+    <DataTemplate x:Key="ProjectListViewTemplate" DataType="{x:Type projviewModels:ProjectListViewModel}">
+        <views:ProjectListView/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ProjectGridViewTemplate" DataType="{x:Type projviewModels:ProjectGridViewModel}">
         <views:ProjectGridView/>
     </DataTemplate>
 
+    <templateSelectors:ProjectTemplateSelector x:Key="ProjectTemplateSelector"
+                                               ProjectListViewTemplate="{StaticResource ProjectListViewTemplate}"
+                                               ProjectGridViewTemplate="{StaticResource ProjectGridViewTemplate}"/>
+
     <DataTemplate DataType="{x:Type projviewModels:ProjectDialogViewModel}">
         <views:ProjectDialogView/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type projviewModels:ProjectViewModel}">
-        <views:ProjectListView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type baseVM:ConfirmDialogViewModel}">

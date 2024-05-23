@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeGenerator.WPF.Resources.Enums;
+using System;
 using System.IO;
 using System.Windows;
 
@@ -13,6 +14,8 @@ public static class Constants
     public static readonly string APPLICATION_PATH = Path.Combine(APPLICATION_DIRECTORY, APPLICATION_NAME);
 
     public static readonly string PROJECTS_FILENAME = "Projects.json";
+
+    public static ProjectViewLayout DEFAULT_PROJECT_LAYOUT = ProjectViewLayout.LIST;
 
 #if RELEASE
     public static readonly Visibility COMPONENT_VISIBILITY = Visibility.Collapsed;

@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CodeGenerator.WPF.Views"
+             xmlns:pvm="clr-namespace:CodeGenerator.WPF.ViewModels.ProjectViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ListView Style="{DynamicResource ProjectListViewStyle}"
                   ItemContainerStyle="{StaticResource ProjectListViewItem}"
-                  ItemsSource="{Binding Projects, Mode=TwoWay}"/>
-
+                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ProjectsView}, Path=DataContext.Projects}"
+                  ItemTemplate="{StaticResource ProjectListViewTemplate}">
+        </ListView>
     </Grid>
 </UserControl>

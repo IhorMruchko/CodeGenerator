@@ -4,6 +4,6 @@
                     xmlns:constants="clr-namespace:CodeGenerator.WPF.Resources.Constants">
     <s:Boolean x:Key="True">True</s:Boolean>
     <s:Boolean x:Key="False">False</s:Boolean>
-    <s:Double x:Key="ProjectListViewSpacing">-15</s:Double>
+    <s:Double x:Key="ProjectListViewSpacing">-40</s:Double>
     <s:Double x:Key="HeaderHeight">-30</s:Double>
 </ResourceDictionary>

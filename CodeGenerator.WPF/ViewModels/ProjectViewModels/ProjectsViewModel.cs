@@ -9,42 +9,54 @@ using CodeGenerator.WPF.Resources.Constants;
 using CodeGenerator.WPF.ViewModels.BaseModels;
 using CodeGenerator.WPF.Views;
 using System;
-using System.Collections.ObjectModel;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CodeGenerator.WPF.Resources.Enums;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
 public class ProjectsViewModel : ViewModel
 {
-    public SliderVM ProjectDisplayLayout { get; set; }
-
     private readonly BackgroundWorker _worker;
 
     private readonly JsonIOService<Project[]> _connection = new(Constants.APPLICATION_PATH, Constants.PROJECTS_FILENAME);
 
-    protected ItemsObservableCollection<ProjectViewModel> Projects = new() { 
-    };
+    private ProjectLayoutViewModel _selectedViewModel = new();
 
-    protected ObservableCollection<Project> ProjectData = new();
+    public ItemsObservableCollection<ProjectViewModel> Projects { get; set; } = new();
+
+
+    public ProjectLayoutViewModel SelectedViewModel
+    {
+        get => _selectedViewModel;
+        set
+        {
+            _selectedViewModel = value;
+            OnPropertyChanged();
+        }
+    }
 
     public ProjectsViewModel()
     {
         _worker = BackgroundWorker.Worker;
         Projects = new ItemsObservableCollection<ProjectViewModel>(_connection.TryRead(out var projects) ? projects?.Select(project => new ProjectViewModel(project)) ?? Array.Empty<ProjectViewModel>() : Array.Empty<ProjectViewModel>());
         Projects.CollectionChanged += (_, _) => Save();
-        Projects.ItemPropertyChanged += (_, _) => Save();
-        ProjectDisplayLayout = new SliderVM().AddNext(new ProjectsListViewModel(Projects))
-                                             .AddNext(new ProjectsGridViewModel(Projects));
+        Projects.ItemPropertyChanged += (_, e) => Save();
     }
 
-    private void Save()
+    private void Save(PropertyChangedEventArgs? args = null)
     {
+        if (args is not null && args.PropertyName == nameof(ProjectViewModel.Layout)) return;
+
         _worker.AddTask(new Task(() => _connection.Write(Projects.Select(model => model.Project).ToArray())));
+
     }
 
     public RelayedCommand AddProject => new(CreateProject);
+
+    public RelayedCommand ChangeLayoutCommand => new(ChangeLayout);
 
     public RelayedCommand RemoveProjectCommand => new(RemoveProject);
 
@@ -76,8 +88,8 @@ public class ProjectsViewModel : ViewModel
     {
         if (parameter is not MainWindow mainWindow) return;
 
-        var dialog = new ProjectDialogViewModel() 
-        { 
+        var dialog = new ProjectDialogViewModel()
+        {
             DialogTitle = "Create Project"
         };
 
@@ -95,7 +107,7 @@ public class ProjectsViewModel : ViewModel
         };
     }
 
-    private void RemoveProject(object? parameter=null)
+    private void RemoveProject(object? parameter = null)
     {
         if (parameter is not object[] source || source.Length != 2 || source[0] is not ProjectViewModel pvm || source[1] is not MainWindow mv) return;
 
@@ -112,7 +124,25 @@ public class ProjectsViewModel : ViewModel
                 Directory.Delete(Path.Combine(pvm.Project.Directory, pvm.Project.Title));
             }
         };
-        
+
         Commands.OpenDialogCommand.Execute(new object[] { mv, confrimDialog });
+    }
+
+    private void ChangeLayout(object? parameter = null)
+    {
+        if (parameter is not ProjectViewLayout layout || layout == SelectedViewModel.Layout) return;
+
+
+        SelectedViewModel.Layout = layout;
+        
+        var copy = SelectedViewModel;
+        SelectedViewModel = null;
+        SelectedViewModel = copy;
+        
+        foreach (var project in Projects)
+        {
+            project.Layout = layout;
+        }
+
     }
 }

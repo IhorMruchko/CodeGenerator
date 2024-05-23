@@ -7,11 +7,9 @@
              xmlns:constatnts="clr-namespace:CodeGenerator.WPF.Resources.Constants"
              xmlns:pvm="clr-namespace:CodeGenerator.WPF.ViewModels.ProjectViewModels"
              xmlns:cc="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers"
+             xmlns:enums="clr-namespace:CodeGenerator.WPF.Resources.Enums"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <pvm:ProjectsViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -26,26 +24,26 @@
                            Icon="{StaticResource ListViewIcon}"
                            Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
-                           Command="{Binding ProjectDisplayLayout.SelectConcreteCommand}"
-                           CommandParameter="{x:Type pvm:ProjectsListViewModel}"
+                           Command="{Binding ChangeLayoutCommand}"
+                           CommandParameter="{x:Static enums:ProjectViewLayout.LIST}"
                            CornerRadius="50"
                            ToolTip="List View"
-                           Visibility="{x:Static constatnts:Constants.COMPONENT_VISIBILITY}"/>
+                           Margin="10 0 20 0"/>
 
             <cc:IconButton DockPanel.Dock="Right" Icon="{StaticResource GridViewIcon}"
                            Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
-                           Command="{Binding ProjectDisplayLayout.SelectConcreteCommand}"
-                           CommandParameter="{x:Type pvm:ProjectsGridViewModel}"
+                           Command="{Binding ChangeLayoutCommand}"
+                           CommandParameter="{x:Static enums:ProjectViewLayout.GRID}"
                            CornerRadius="50"
-                           ToolTip="Grid View"
-                           Visibility="{x:Static constatnts:Constants.COMPONENT_VISIBILITY}"/>
+                           ToolTip="Grid View"/>
         </DockPanel>
 
         <ContentControl Grid.Row="1"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Content="{Binding ProjectDisplayLayout.SelectedViewModel}"/>
+                        Content="{Binding SelectedViewModel}"
+                        ContentTemplateSelector="{StaticResource ProjectsTemplateSelector}"/>
 
         <DockPanel Grid.Row="2"
                    LastChildFill="False"
