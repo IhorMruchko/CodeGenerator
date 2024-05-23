@@ -22,7 +22,47 @@ public static class Commands
 
     public static RelayedCommand MinimizeWindowCommand => new(MinimizeWindow);
 
+    public static RelayedCommand OpenDialogCommand => new(OpenDialog);
+
+    public static RelayedCommand CloseDialogCommand => new(CloseDialog);
+
+    public static RelayedCommand ProceedDialogCommand => new(ProceedDialog);
+
     public static RelayedCommand AddFileCommand => new(AddFile);
+
+    private static void OpenDialog(object? parameter=null)
+    {
+        if (parameter.ToParser()
+            .Parse(out MainWindow mv)
+            .Parse(out DialogViewModel dvm)
+            .Failed) return;
+
+        mv.DialogContentControl.Content = dvm;
+        mv.DialogContentControl.Visibility = Visibility.Visible;
+    }
+
+    private static void CloseDialog(object? parameter=null)
+    {
+        if (parameter.ToParser()
+           .Parse(out MainWindow mv)
+           .Failed) return;
+
+        mv.DialogContentControl.Visibility = Visibility.Collapsed;
+        mv.DialogContentControl.Content = null;
+    }
+
+    private static void ProceedDialog(object? parameter=null)
+    {
+        if (parameter.ToParser()
+           .Parse(out MainWindow mv)
+           .Parse(out DialogViewModel dvm)
+           .Failed) return;
+
+        mv.DialogContentControl.Visibility = Visibility.Collapsed;
+        mv.DialogContentControl.Content = null;
+
+        dvm.ConfirmDialog();
+    }
 
     private static void Exit(object? parameter = null)
         => Environment.Exit(0);
@@ -72,20 +112,11 @@ public static class Commands
             Directory = dir
         };
 
-        createFileDialog.PropertyChanged += CreateFileDialog_PropertyChanged;
-        mv.OpenDialogWindow(createFileDialog);
-    }
+        createFileDialog.DialogSuccess += () =>
+        {
+            File.Create(Path.Combine(createFileDialog.Directory, createFileDialog.FileName + createFileDialog.FileExtension));
+        };
 
-    private static void CreateFileDialog_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (sender is not FileDialogViewModel fdvm
-            || e.PropertyName != nameof(DialogViewModel.HasValue)
-            || !fdvm.HasValue
-            || fdvm.Directory is null
-            || fdvm.FileName is null
-            || fdvm.FileExtension is null
-        ) return;
-
-        File.Create(Path.Combine(fdvm.Directory, fdvm.FileName + fdvm.FileExtension));
+        OpenDialog(new object[] {mv, createFileDialog});
     }
 }

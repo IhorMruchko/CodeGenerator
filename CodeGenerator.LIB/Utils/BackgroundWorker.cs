@@ -10,14 +10,33 @@ namespace CodeGenerator.LIB.Utils
         private readonly BlockingCollection<Task> _tasksQueue = new BlockingCollection<Task>();
 
         private readonly Thread _mainThread;
-        
-        public BackgroundWorker() 
+
+        private static BackgroundWorker? _instance;
+
+        private static readonly object _lock = new();
+
+        private BackgroundWorker() 
         {
             _mainThread = new Thread(StartExecution)
             {
                 IsBackground = true,
             };
             _mainThread.Start();
+        }
+
+        public static BackgroundWorker Worker
+        {
+            get
+            {
+                if (_instance is null)
+                {
+                    lock(_lock)
+                    {
+                        _instance ??= new BackgroundWorker();
+                    }
+                }
+                return _instance;
+            }
         }
 
         public BackgroundWorker AddTask(Task task)

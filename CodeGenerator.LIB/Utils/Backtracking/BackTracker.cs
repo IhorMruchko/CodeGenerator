@@ -9,7 +9,12 @@ namespace CodeGenerator.LIB.Utils.Backtracking
 
         private readonly Stack<ICancelable> _undoneActions = new Stack<ICancelable>();
 
-        private readonly BackgroundWorker _worker = new BackgroundWorker();
+        private readonly BackgroundWorker _worker;
+
+        public BackTracker()
+        {
+            _worker = BackgroundWorker.Worker;
+        }
 
         public bool ChangesMade => _doneActions.Any();
 

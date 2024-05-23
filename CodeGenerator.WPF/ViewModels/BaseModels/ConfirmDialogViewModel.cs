@@ -1,7 +1,4 @@
-﻿using CodeGenerator.WPF.LIB.Commands;
-using CodeGenerator.WPF.Views;
-
-namespace CodeGenerator.WPF.ViewModels.BaseModels;
+﻿namespace CodeGenerator.WPF.ViewModels.BaseModels;
 
 public class ConfirmDialogViewModel : DialogViewModel
 {
@@ -17,15 +14,4 @@ public class ConfirmDialogViewModel : DialogViewModel
     }
 
     public object? Target { get; set; }
-
-    public RelayedCommand ConfirmActionCommand => new(ConfirmAction);
-
-    private void ConfirmAction(object? parameter = null)
-    {
-        HasValue = true;
-        
-        if (parameter is not MainWindow mv) return;
-        
-        mv.CloseDialogWindow(true);
-    }
 }

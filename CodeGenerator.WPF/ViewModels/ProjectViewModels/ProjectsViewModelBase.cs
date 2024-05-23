@@ -10,7 +10,6 @@ public abstract class ProjectsViewModelBase : ViewModel
     public ProjectsViewModelBase(ItemsObservableCollection<ProjectViewModel> projects)
     {
         Projects = projects;
-        ConvertObjects();
     }
 
     protected abstract void ConvertObjects();

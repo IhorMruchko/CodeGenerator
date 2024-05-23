@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="MenuButtonStyle.xaml"/>
         <ResourceDictionary Source="IconButtonStyle.xaml"/>
+        <ResourceDictionary Source="DialogButtonStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>    
 </ResourceDictionary>

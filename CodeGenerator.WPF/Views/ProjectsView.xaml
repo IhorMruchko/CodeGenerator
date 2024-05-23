@@ -36,7 +36,7 @@
                            Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            Command="{Binding ProjectDisplayLayout.SelectConcreteCommand}"
-                           CommandParameter="{x:Type pvm:ProjectGridViewModel}"
+                           CommandParameter="{x:Type pvm:ProjectsGridViewModel}"
                            CornerRadius="50"
                            ToolTip="Grid View"
                            Visibility="{x:Static constatnts:Constants.COMPONENT_VISIBILITY}"/>

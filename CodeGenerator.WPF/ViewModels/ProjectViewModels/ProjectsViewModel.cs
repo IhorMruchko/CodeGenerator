@@ -1,17 +1,18 @@
-﻿using CodeGenerator.LIB.ProgramingLanguages.PythonProgramingLanguage;
+﻿using CodeGenerator.LIB.Utils;
 using CodeGenerator.LIB.Utils.Connections;
 using CodeGenerator.WPF.LIB.Base;
 using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.LIB.ViewModels;
 using CodeGenerator.WPF.Models;
+using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.Resources.Constants;
 using CodeGenerator.WPF.ViewModels.BaseModels;
 using CodeGenerator.WPF.Views;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
@@ -19,32 +20,28 @@ public class ProjectsViewModel : ViewModel
 {
     public SliderVM ProjectDisplayLayout { get; set; }
 
-    private JsonIOService<Project[]> _connection = new(Constants.APPLICATION_PATH, Constants.PROJECTS_FILENAME);
+    private readonly BackgroundWorker _worker;
 
-    // TODO: Add custom inner collection observable
+    private readonly JsonIOService<Project[]> _connection = new(Constants.APPLICATION_PATH, Constants.PROJECTS_FILENAME);
+
     protected ItemsObservableCollection<ProjectViewModel> Projects = new() { 
-        // TODO: Add reading from file
     };
 
     protected ObservableCollection<Project> ProjectData = new();
 
     public ProjectsViewModel()
     {
+        _worker = BackgroundWorker.Worker;
         Projects = new ItemsObservableCollection<ProjectViewModel>(_connection.TryRead(out var projects) ? projects?.Select(project => new ProjectViewModel(project)) ?? Array.Empty<ProjectViewModel>() : Array.Empty<ProjectViewModel>());
-        Projects.CollectionChanged += Projects_CollectionChanged;
-        Projects.ItemPropertyChanged += Projects_ItemPropertyChanged;
+        Projects.CollectionChanged += (_, _) => Save();
+        Projects.ItemPropertyChanged += (_, _) => Save();
         ProjectDisplayLayout = new SliderVM().AddNext(new ProjectsListViewModel(Projects))
-                                             .AddNext(new ProjectGridViewModel(Projects));
+                                             .AddNext(new ProjectsGridViewModel(Projects));
     }
 
-    private void Projects_ItemPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void Save()
     {
-        _connection.Write(Projects.Select(model => model.Project).ToArray());
-    }
-
-    private void Projects_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        _connection.Write(Projects.Select(model => model.Project).ToArray());
+        _worker.AddTask(new Task(() => _connection.Write(Projects.Select(model => model.Project).ToArray())));
     }
 
     public RelayedCommand AddProject => new(CreateProject);
@@ -79,11 +76,23 @@ public class ProjectsViewModel : ViewModel
     {
         if (parameter is not MainWindow mainWindow) return;
 
-        var dialog = new ProjectDialogViewModel();
+        var dialog = new ProjectDialogViewModel() 
+        { 
+            DialogTitle = "Create Project"
+        };
 
-        mainWindow.OpenDialogWindow(dialog);
+        Commands.OpenDialogCommand.Execute(new object[] { mainWindow, dialog });
 
-        dialog.PropertyChanged += Dialog_PropertyChanged;
+        dialog.DialogSuccess += () =>
+        {
+            Projects.Add(new ProjectViewModel(dialog.Project));
+
+            var directoryInfo = Directory.CreateDirectory(Path.Combine(
+                dialog.Project.Directory,
+                dialog.Project.Title
+            ));
+            directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+        };
     }
 
     private void RemoveProject(object? parameter=null)
@@ -95,21 +104,15 @@ public class ProjectsViewModel : ViewModel
             Target = pvm,
             ConfirmationText = $"Are you sure you want to delete this ({pvm.Title}) project?"
         };
-        confrimDialog.PropertyChanged += ConfrimDialog_PropertyChanged;
-        mv.OpenDialogWindow(confrimDialog);
-    }
-
-    private void ConfrimDialog_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (sender is not ConfirmDialogViewModel cdvm || e.PropertyName != nameof(DialogViewModel.HasValue) || !cdvm.HasValue || cdvm.Target is not ProjectViewModel pvm) return;
-        Projects.Remove(pvm);
-    }
-
-    private void Dialog_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName != nameof(ProjectDialogViewModel.HasValue)) return;
-        if (sender is not ProjectDialogViewModel pdvm) return;
-        if (!pdvm.HasValue) return;
-        Projects.Add(new ProjectViewModel(pdvm.Project));
+        confrimDialog.DialogSuccess += () =>
+        {
+            Projects.Remove(pvm);
+            if (Directory.Exists(Path.Combine(pvm.Project.Directory, pvm.Project.Title)))
+            {
+                Directory.Delete(Path.Combine(pvm.Project.Directory, pvm.Project.Title));
+            }
+        };
+        
+        Commands.OpenDialogCommand.Execute(new object[] { mv, confrimDialog });
     }
 }

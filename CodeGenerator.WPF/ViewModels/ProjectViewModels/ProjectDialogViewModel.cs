@@ -7,6 +7,8 @@ namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
 public class ProjectDialogViewModel : DialogViewModel
 {
+    private string? _dialogTitle;
+
     public ProjectDialogViewModel()
     {
 
@@ -18,6 +20,16 @@ public class ProjectDialogViewModel : DialogViewModel
     }
 
     public Project Project { get; set; } = new Project();
+
+    public string? DialogTitle
+    {
+        get => _dialogTitle;
+        set
+        {
+            _dialogTitle = value;
+            OnPropertyChanged();
+        }
+    }
 
     public string Title
     {

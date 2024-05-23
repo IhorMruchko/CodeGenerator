@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CodeGenerator.WPF.Views" 
              xmlns:customcontrollers="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers"
+             xmlns:resources="clr-namespace:CodeGenerator.WPF.Resources"
              xmlns:api="clr-namespace:CodeGenerator.LIB;assembly=CodeGenerator.LIB"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -24,13 +25,21 @@
                                   BlurRadius="10"/>
             </StackPanel.Effect>
 
-            <DockPanel LastChildFill="False">
+            <DockPanel LastChildFill="False"
+                       Background="{DynamicResource Header.Static.Background}">
                 <customcontrollers:IconButton DockPanel.Dock="Right" 
                                               Width="30" 
                                               Height="30"
                                               CornerRadius="10"
                                               Icon="{StaticResource CloseIcon}"
-                                              Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=CloseDialog}"/>
+                                              Command="{x:Static resources:Commands.CloseDialogCommand}">
+                    <customcontrollers:IconButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </customcontrollers:IconButton.CommandParameter>
+                </customcontrollers:IconButton>
             </DockPanel>
 
             <Grid>
@@ -63,16 +72,33 @@
                           SelectedIndex="0"
                           SelectedItem="{Binding FileExtension}"/>
 
-                <Button Grid.Row="4"
-                        Height="30"
-                        Content="Cancel"
-                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=CloseDialog}"/>
-                <Button Grid.Row="4"
-                        Grid.Column="1"
-                        Height="30"
-                        Content="Save"
-                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=CloseDialog}"
-                        CommandParameter="{StaticResource True}"/>
+                <customcontrollers:TextButton Grid.Row="4"
+                                              Height="30"
+                                              Content="Cancel"
+                                              CornerRadius="10"
+                                              Style="{StaticResource ButtonCancelStyle}"
+                                              Command="{x:Static resources:Commands.CloseDialogCommand}">
+                    <customcontrollers:TextButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </customcontrollers:TextButton.CommandParameter>
+                </customcontrollers:TextButton>
+                <customcontrollers:TextButton Grid.Row="4"
+                                              Grid.Column="1"
+                                              Height="30"
+                                              Content="Save"
+                                              CornerRadius="10"
+                                              Style="{StaticResource ButtonProceedStyle}"
+                                              Command="{x:Static resources:Commands.ProceedDialogCommand}">
+                    <customcontrollers:TextButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </customcontrollers:TextButton.CommandParameter>
+                </customcontrollers:TextButton>
             </Grid>
         </StackPanel>
     </Grid>

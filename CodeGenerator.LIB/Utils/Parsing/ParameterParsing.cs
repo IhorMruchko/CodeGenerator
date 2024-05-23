@@ -40,4 +40,6 @@ public class ParameterParser
     }
 
     public bool CanParse => _canParse;
+
+    public bool Failed => !_canParse;
 }

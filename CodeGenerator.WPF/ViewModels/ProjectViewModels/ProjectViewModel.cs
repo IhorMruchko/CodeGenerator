@@ -2,6 +2,7 @@
 using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.LIB.ViewModels;
 using CodeGenerator.WPF.Models;
+using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.Views;
 using System.Diagnostics;
 
@@ -57,15 +58,15 @@ public class ProjectViewModel : ViewModel
 
 
         var copy = Project.Copy();
-        var editDialog = new ProjectDialogViewModel(copy);
-        editDialog.PropertyChanged += EditDialog_PropertyChanged;
-        mv.OpenDialogWindow(editDialog);
+        var editDialog = new ProjectDialogViewModel(copy)
+        {
+            DialogTitle = "Edit project"
+        };
+        editDialog.DialogSuccess += () =>
+        {
+            this.CopyFrom(editDialog.Project);
+        };
+        Commands.OpenDialogCommand.Execute(new object[] { mv, editDialog });
 
-    }
-
-    private void EditDialog_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (sender is not ProjectDialogViewModel pdvm || e.PropertyName != nameof(ProjectDialogViewModel.HasValue) || !pdvm.HasValue) return;
-        this.CopyFrom(pdvm.Project);
     }
 }

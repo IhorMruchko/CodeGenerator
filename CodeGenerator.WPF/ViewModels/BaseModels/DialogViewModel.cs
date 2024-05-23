@@ -1,28 +1,14 @@
-﻿using CodeGenerator.WPF.LIB.Commands;
-using CodeGenerator.WPF.LIB.ViewModels;
+﻿using CodeGenerator.WPF.LIB.ViewModels;
+using System;
 
 namespace CodeGenerator.WPF.ViewModels.BaseModels;
 
 public class DialogViewModel : ViewModel
 {
-    public RelayedCommand ConfirmDialogCommand => new(ConfirmDialog);
+    public event Action? DialogSuccess;
 
-    private bool _hasValue;
-
-    public bool HasValue
+    public virtual void ConfirmDialog()
     {
-        get => _hasValue;
-        set
-        {
-            if (_hasValue == value) return;
-
-            _hasValue = value;
-            OnPropertyChanged();
-        }
-    }
-
-    protected virtual void ConfirmDialog(object? parameter)
-    {
-        HasValue = true;
+        DialogSuccess?.Invoke();
     }
 }

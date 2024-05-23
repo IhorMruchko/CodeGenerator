@@ -16,23 +16,6 @@ public partial class MainWindow : Window
         DataContext = new MainWindowViewModel();
     }
 
-    public RelayedCommand CloseDialog => new(CloseDialogWindow);
-
-    public void CloseDialogWindow(object? parameter = null)
-    {
-        if (DialogContentControl.Content is DialogViewModel dvm)
-            dvm.HasValue = parameter is bool param && param;
-
-        DialogContentControl.Visibility = Visibility.Collapsed;
-        DialogContentControl.Content = null;
-    }
-
-    public void OpenDialogWindow(DialogViewModel viewModel)
-    {
-        DialogContentControl.Visibility = Visibility.Visible;
-        DialogContentControl.Content = viewModel;
-    }
-
     public void ChangeContent(ViewModel viewModel)
     {
         ((MainWindowViewModel)DataContext).Slider.SelectedViewModel = viewModel;

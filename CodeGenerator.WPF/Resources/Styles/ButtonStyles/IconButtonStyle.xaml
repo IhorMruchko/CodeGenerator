@@ -19,7 +19,7 @@
                 <ControlTemplate TargetType="{x:Type local:IconButton}">
                     <Border x:Name="ContentContainer"
                             Background="{StaticResource Button.Static.Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderBrush="Transparent"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="True"
                             CornerRadius="{TemplateBinding CornerRadius}">
@@ -72,7 +72,7 @@
                 <ControlTemplate TargetType="{x:Type local:IconButton}">
                     <Border x:Name="ContentContainer"
                             Background="{StaticResource Button.Danger.Static.Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderBrush="Transparent"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="True"
                             CornerRadius="{TemplateBinding CornerRadius}">
