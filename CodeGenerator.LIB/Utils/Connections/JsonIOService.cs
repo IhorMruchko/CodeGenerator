@@ -6,6 +6,12 @@ namespace CodeGenerator.LIB.Utils.Connections;
 
 public class JsonIOService<TObject> : IOService<TObject>
 {
+    private JsonSerializerSettings _settings = new()
+    {
+        TypeNameHandling = TypeNameHandling.Auto,
+        Formatting = Formatting.Indented
+    };
+
     public JsonIOService(string directoryPath, string fileName) : base(directoryPath)
     {
         FileName = fileName;
@@ -18,10 +24,10 @@ public class JsonIOService<TObject> : IOService<TObject>
     }
 
     public override TObject? Read()
-        => JsonConvert.DeserializeObject<TObject?>(File.ReadAllText(FilePath)) ?? throw new NullReferenceException();
+        => JsonConvert.DeserializeObject<TObject?>(File.ReadAllText(FilePath), _settings) ?? throw new NullReferenceException();
 
     public override void Write(TObject? data)
-        => File.WriteAllText(FilePath, JsonConvert.SerializeObject(data, Formatting.Indented));
+        => File.WriteAllText(FilePath, JsonConvert.SerializeObject(data, _settings));
 
     public override bool TryRead(out TObject? result)
     {

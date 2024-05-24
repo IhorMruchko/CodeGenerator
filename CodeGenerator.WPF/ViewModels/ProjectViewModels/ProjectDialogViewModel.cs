@@ -41,16 +41,6 @@ public class ProjectDialogViewModel : DialogViewModel
         }
     }
 
-    public string Directory
-    {
-        get => Project.Directory;
-        set
-        {
-            Project.Directory = value;
-            OnPropertyChanged();
-        }
-    }
-
     public RelayedCommand OpenFileDialogCommand => new(OpenFileDialog);
 
     private void OpenFileDialog(object? parameter = null)
@@ -62,6 +52,5 @@ public class ProjectDialogViewModel : DialogViewModel
         };
 
         if (directoryDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
-        Directory = directoryDialog.FileName!;
     }
 }

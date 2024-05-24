@@ -6,9 +6,6 @@ using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.Resources.Constants;
 using CodeGenerator.WPF.Resources.Enums;
 using CodeGenerator.WPF.Views;
-using System.Diagnostics;
-using System.IO;
-using Dir = System.IO.Directory;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
@@ -38,35 +35,14 @@ public class ProjectViewModel : ViewModel
         }
     }
 
-    public string Directory
-    {
-        get => Project.Directory;
-        set
-        {
-            Project.Directory = value;
-            OnPropertyChanged();
-        }
-    }
-
-
     public ProjectViewModel(Project? source = null)
     {
         Project = source ?? new Project();
     }
 
-    public RelayedCommand OpenInFileExplorerCommand => new(OpenInFileExplorer, HasDirectory);
-
     public RelayedCommand OpenEditDialogCommand => new(OpenEditDialog);
 
-    private void OpenInFileExplorer(object? parameter = null)
-    {
-        if (System.IO.Directory.Exists(Directory))
-        {
-            Process.Start("explorer.exe", Directory);
-        }
-    }
-
-    private bool HasDirectory(object? parameter = null) => System.IO.Directory.Exists(Directory);
+    public RelayedCommand OpenProjectCommand => new(OpenProject);
 
     private void OpenEditDialog(object? parameter = null) 
     {
@@ -81,17 +57,20 @@ public class ProjectViewModel : ViewModel
         
         editDialog.DialogSuccess += () =>
         {
-            this.CopyFrom(editDialog.Project);
-            if (Dir.Exists(Path.Combine(editDialog.Project.Directory, editDialog.Project.Title))) return;
-            
-            var directoryInfo = Dir.CreateDirectory(Path.Combine(
-                editDialog.Project.Directory,
-                editDialog.Project.Title
-            ));
-            directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            this.CopyFrom(copy);
         };
         
         Commands.OpenDialogCommand.Execute(new object[] { mv, editDialog });
 
+    }
+
+    private void OpenProject(object? parameter = null)
+    {
+        if (parameter
+            .ToParser()
+            .Parse(out MainWindow mv)
+            .Failed) return;
+
+        mv.ChangeContent(new ProjectElementsViewModel());
     }
 }

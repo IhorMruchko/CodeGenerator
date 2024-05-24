@@ -3,7 +3,6 @@
                     xmlns:views="clr-namespace:CodeGenerator.WPF.Views"
                     xmlns:projviewModels="clr-namespace:CodeGenerator.WPF.ViewModels.ProjectViewModels"
                     xmlns:baseVM ="clr-namespace:CodeGenerator.WPF.ViewModels.BaseModels"
-                    xmlns:filesVM="clr-namespace:CodeGenerator.WPF.ViewModels.FilesViewModels"
                     xmlns:templateSelectors="clr-namespace:CodeGenerator.WPF.Resources.TemplateSelectors">
     <DataTemplate DataType="{x:Type projviewModels:ProjectsViewModel}">
         <views:ProjectsView/>
@@ -40,12 +39,8 @@
     <DataTemplate DataType="{x:Type baseVM:ConfirmDialogViewModel}">
         <views:ConfirmDialogView/>
     </DataTemplate>
-    
-    <DataTemplate DataType="{x:Type projviewModels:ProjectFilesViewModel}">
-        <views:ProjectFilesView/>
-    </DataTemplate>
 
-    <DataTemplate DataType="{x:Type filesVM:FileDialogViewModel}">
-        <views:FileDialogView/>
+    <DataTemplate DataType="{x:Type projviewModels:ProjectElementsViewModel}">
+        <views:ProjectElementsView/>
     </DataTemplate>
 </ResourceDictionary>

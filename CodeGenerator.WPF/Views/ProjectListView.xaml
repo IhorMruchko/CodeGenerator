@@ -41,22 +41,9 @@
         <controls:IconButton DockPanel.Dock="Right" 
                              Margin="10 0 0 0"
                              CornerRadius="20"
-                             Icon="{StaticResource OpenFolderIcon}" 
-                             Command="{Binding OpenInFileExplorerCommand}"
-                             Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=Height}"/>
-        <controls:IconButton DockPanel.Dock="Right" 
-                             Margin="10 0 0 0"
-                             CornerRadius="20"
                              Icon="{StaticResource ViewFolderIcon}"
                              Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=Height}"
-                             Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ProjectsView}, Path=DataContext.OpenProjectCommand}">
-            <controls:IconButton.CommandParameter>
-                <MultiBinding Converter="{StaticResource ArrayConverter}">
-                    <Binding/>
-                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
-                </MultiBinding>
-            </controls:IconButton.CommandParameter>
-        </controls:IconButton>
-
+                             Command="{Binding OpenProjectCommand}"
+                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"/>
     </DockPanel>
 </UserControl>

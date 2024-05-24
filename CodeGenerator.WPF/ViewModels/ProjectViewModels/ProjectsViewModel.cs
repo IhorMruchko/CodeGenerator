@@ -14,6 +14,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeGenerator.WPF.Resources.Enums;
+using CodeGenerator.LIB.Extensions;
+using CodeGenerator.LIB.Generation;
+using System.Diagnostics;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
@@ -51,7 +54,6 @@ public class ProjectsViewModel : ViewModel
         if (args is not null && args.PropertyName == nameof(ProjectViewModel.Layout)) return;
 
         _worker.AddTask(new Task(() => _connection.Write(Projects.Select(model => model.Project).ToArray())));
-
     }
 
     public RelayedCommand AddProject => new(CreateProject);
@@ -60,50 +62,23 @@ public class ProjectsViewModel : ViewModel
 
     public RelayedCommand RemoveProjectCommand => new(RemoveProject);
 
-    public RelayedCommand OpenProjectCommand => new(OpenProject, CanOpenProject);
-
-    private void OpenProject(object? parameter = null)
-    {
-        if (parameter is not object[] parameters
-            || parameters.Length != 2
-            || parameters[0] is not ProjectViewModel pvm
-            || parameters[1] is not MainWindow mv) return;
-
-        mv.ChangeContent(new ProjectFilesViewModel()
-        {
-            Source = pvm.Project
-        });
-    }
-
-    private bool CanOpenProject(object? parameter = null)
-    {
-        return parameter is object[] parameters
-            && parameters.Length == 2
-            && parameters[0] is ProjectViewModel pvm
-            && Directory.Exists(pvm.Directory)
-            && parameters[1] is MainWindow;
-    }
-
     private void CreateProject(object? parameter = null)
     {
-        if (parameter is not MainWindow mainWindow) return;
+        if (parameter
+            .ToParser()
+            .Parse(out MainWindow mv)
+            .Failed) return;
 
         var dialog = new ProjectDialogViewModel()
         {
             DialogTitle = "Create Project"
         };
 
-        Commands.OpenDialogCommand.Execute(new object[] { mainWindow, dialog });
+        Commands.OpenDialogCommand.Execute(new object[] { mv, dialog });
 
         dialog.DialogSuccess += () =>
         {
             Projects.Add(new ProjectViewModel(dialog.Project));
-
-            var directoryInfo = Directory.CreateDirectory(Path.Combine(
-                dialog.Project.Directory,
-                dialog.Project.Title
-            ));
-            directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
         };
     }
 
@@ -119,10 +94,6 @@ public class ProjectsViewModel : ViewModel
         confrimDialog.DialogSuccess += () =>
         {
             Projects.Remove(pvm);
-            if (Directory.Exists(Path.Combine(pvm.Project.Directory, pvm.Project.Title)))
-            {
-                Directory.Delete(Path.Combine(pvm.Project.Directory, pvm.Project.Title));
-            }
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, confrimDialog });

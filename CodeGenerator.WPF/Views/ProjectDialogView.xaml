@@ -63,20 +63,6 @@
                          Grid.Row="1"
                          Grid.ColumnSpan="2"
                          Text="{Binding Path=Title, Mode=TwoWay, NotifyOnTargetUpdated=True}"/>
-                <Label Grid.Row="2"
-                       Content="Directory"/>
-                <DockPanel Grid.Row="3" 
-                           Grid.ColumnSpan="2"
-                           Height="30"
-                           Margin="0 0 0 20">
-                    <customcontrollers:IconButton DockPanel.Dock="Right" Icon="{StaticResource OpenFolderIcon}"
-                                                  Width="30"
-                                                  CornerRadius="10"
-                                                  Command="{Binding OpenFileDialogCommand}"
-                                                  CommandParameter="{Binding Directory}"/>
-                    <TextBox Text="{Binding Directory}"/>
-                </DockPanel>
-
                 <customcontrollers:TextButton Grid.Row="4"
                                               Height="30"
                                               Content="Cancel"

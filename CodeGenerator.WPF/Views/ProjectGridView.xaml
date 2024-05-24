@@ -30,26 +30,13 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <controls:IconButton DockPanel.Dock="Right" 
-                             Margin="10 0 0 0"
-                             CornerRadius="20"
-                             Icon="{StaticResource ViewFolderIcon}"
-                             Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=Height}"
-                             Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ProjectsView}, Path=DataContext.OpenProjectCommand}">
-                    <controls:IconButton.CommandParameter>
-                        <MultiBinding Converter="{StaticResource ArrayConverter}">
-                            <Binding/>
-                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
-                        </MultiBinding>
-                    </controls:IconButton.CommandParameter>
-                </controls:IconButton>
-
-                <controls:IconButton DockPanel.Dock="Right" 
-                             Margin="10 0 0 0"
-                             CornerRadius="20"
-                             Icon="{StaticResource OpenFolderIcon}" 
-                             Command="{Binding OpenInFileExplorerCommand}"
-                             Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=Height}"/>
-
+                                     Margin="10 0 0 0"
+                                     CornerRadius="20"
+                                     Icon="{StaticResource ViewFolderIcon}"
+                                     Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=Height}"
+                                     Command="{Binding OpenProjectCommand}"
+                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"/>
+                
                 <controls:IconButton DockPanel.Dock="Right" 
                              Margin="10 0 0 0"
                              CornerRadius="20"

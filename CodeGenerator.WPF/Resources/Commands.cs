@@ -2,11 +2,8 @@
 using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.Resources.CustomControllers;
 using CodeGenerator.WPF.ViewModels.BaseModels;
-using CodeGenerator.WPF.ViewModels.FilesViewModels;
-using CodeGenerator.WPF.ViewModels.ProjectViewModels;
 using CodeGenerator.WPF.Views;
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -27,8 +24,6 @@ public static class Commands
     public static RelayedCommand CloseDialogCommand => new(CloseDialog);
 
     public static RelayedCommand ProceedDialogCommand => new(ProceedDialog);
-
-    public static RelayedCommand AddFileCommand => new(AddFile);
 
     private static void OpenDialog(object? parameter=null)
     {
@@ -97,27 +92,5 @@ public static class Commands
     {
         if (parameter is not MainWindow mv) return;
         mv.WindowState = WindowState.Minimized;
-    }
-
-    private static void AddFile(object? parameter=null)
-    {
-        if (!parameter.ToParser()
-            .Parse<MainWindow>(out var mv)
-            .Parse<string>(out var dir)
-            .Parse<ProjectFilesViewModel>(out var pfvm)
-            .CanParse) return;
-        
-        var createFileDialog = new FileDialogViewModel()
-        {
-            Directory = dir
-        };
-
-        createFileDialog.DialogSuccess += () =>
-        {
-            File.Create(Path.Combine(createFileDialog.Directory, createFileDialog.FileName + createFileDialog.FileExtension));
-            pfvm.FileNames = new(Directory.GetFiles(dir));
-        };
-
-        OpenDialog(new object[] {mv, createFileDialog});
     }
 }

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator.LIB", "CodeGe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{D33A6665-B862-460D-BDB3-8B94B7CFE05D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.WPF", "CodeGenerator.WPF\CodeGenerator.WPF.csproj", "{A282B114-C792-44C7-B386-E2B5AB55B761}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator.WPF", "CodeGenerator.WPF\CodeGenerator.WPF.csproj", "{A282B114-C792-44C7-B386-E2B5AB55B761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.WPF.LIB", "CodeGenerator.WPF.LIB\CodeGenerator.WPF.LIB.csproj", "{D74BDC03-4D41-401A-B42D-8D98FF9F064B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator.WPF.LIB", "CodeGenerator.WPF.LIB\CodeGenerator.WPF.LIB.csproj", "{D74BDC03-4D41-401A-B42D-8D98FF9F064B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentRequests.Lib", "..\FluentRequests\FluentRequests\FluentRequests.Lib.csproj", "{79E0F8DA-147E-4F46-8892-43A773CA4E0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D74BDC03-4D41-401A-B42D-8D98FF9F064B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D74BDC03-4D41-401A-B42D-8D98FF9F064B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D74BDC03-4D41-401A-B42D-8D98FF9F064B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E0F8DA-147E-4F46-8892-43A773CA4E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E0F8DA-147E-4F46-8892-43A773CA4E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E0F8DA-147E-4F46-8892-43A773CA4E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E0F8DA-147E-4F46-8892-43A773CA4E0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

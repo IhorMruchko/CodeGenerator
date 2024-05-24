@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Generation\" />
-    <Folder Include="ProgramingLanguages\CSharpProgramingLanguage\Versions\NetStandard2\Features\" />
-    <Folder Include="ProgramingLanguages\CSharpProgramingLanguage\Versions\NetStandard2\Parsers\" />
-    <Folder Include="Utils\Databases\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
