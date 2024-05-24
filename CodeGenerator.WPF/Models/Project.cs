@@ -7,5 +7,5 @@ public class Project
 {
     public string Title { get; set; } = string.Empty;
 
-    public List<GenerationItem> Files { get; set; } = new();
+    public List<GenerationItem> Items { get; set; } = new();
 }

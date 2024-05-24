@@ -3,7 +3,9 @@
                     xmlns:views="clr-namespace:CodeGenerator.WPF.Views"
                     xmlns:projviewModels="clr-namespace:CodeGenerator.WPF.ViewModels.ProjectViewModels"
                     xmlns:baseVM ="clr-namespace:CodeGenerator.WPF.ViewModels.BaseModels"
-                    xmlns:templateSelectors="clr-namespace:CodeGenerator.WPF.Resources.TemplateSelectors">
+                    xmlns:templateSelectors="clr-namespace:CodeGenerator.WPF.Resources.TemplateSelectors"
+                    xmlns:dialogs="clr-namespace:CodeGenerator.WPF.ViewModels.GenerationElementViewModels.Dialogs"
+                    xmlns:gevm="clr-namespace:CodeGenerator.WPF.ViewModels.GenerationElementViewModels">
     <DataTemplate DataType="{x:Type projviewModels:ProjectsViewModel}">
         <views:ProjectsView/>
     </DataTemplate>
@@ -42,5 +44,21 @@
 
     <DataTemplate DataType="{x:Type projviewModels:ProjectElementsViewModel}">
         <views:ProjectElementsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dialogs:CommandGenerationDialogViewModel}">
+        <views:CommandGenerationDialogView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dialogs:PreviewGenerationDialogViewModel}">
+        <views:PreviewGenerationView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dialogs:SelectTypeDialogViewModel}">
+        <views:SelectTypeDialogView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type gevm:CommandGenerationElementViewModel}">
+        <views:CommandGenerationView/>
     </DataTemplate>
 </ResourceDictionary>

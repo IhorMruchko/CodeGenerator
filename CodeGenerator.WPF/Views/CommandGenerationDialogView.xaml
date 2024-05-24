@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="CodeGenerator.WPF.Views.CommandGenerationDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeGenerator.WPF.Views" 
+             xmlns:customcontrollers="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers"
+             xmlns:resources="clr-namespace:CodeGenerator.WPF.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{DynamicResource Dialog.Static.TransparentBackground}"
+          Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid},Path=ActualWidth}"
+          Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid},Path=ActualHeight}">
+        <StackPanel Background="{DynamicResource Dialog.Static.Background}" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="400"
+                    Height="250">
+            <StackPanel.Effect>
+                <DropShadowEffect ShadowDepth="10"
+                                  Direction="270"
+                                  Color="Black"
+                                  Opacity="0.7"
+                                  BlurRadius="10"/>
+            </StackPanel.Effect>
+
+            <DockPanel LastChildFill="False"
+                       Background="{DynamicResource Header.Static.Background}">
+                <Label Content="{Binding DialogTitle}"
+                       VerticalContentAlignment="Center"/>
+                <customcontrollers:IconButton DockPanel.Dock="Right" 
+                                              Width="30" 
+                                              Height="30"
+                                              CornerRadius="10"
+                                              Icon="{StaticResource CloseIcon}"
+                                              Command="{x:Static resources:Commands.CloseDialogCommand}">
+                    <customcontrollers:IconButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </customcontrollers:IconButton.CommandParameter>
+                </customcontrollers:IconButton>
+            </DockPanel>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Content="Command Name"/>
+                <TextBox Height="30" 
+                         Grid.Row="1"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding Path=Command, Mode=TwoWay, NotifyOnTargetUpdated=True}"/>
+                <Label Grid.Row="2"
+                       Content="Help"/>
+                <TextBox Height="30" 
+                         Grid.Row="3"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding Path=Help, Mode=TwoWay, NotifyOnTargetUpdated=True}"/>
+                <Label Grid.Row="4"
+                       Content="Class Name"/>
+                <TextBox Height="30" 
+                         Grid.Row="5"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding Path=Class, Mode=TwoWay, NotifyOnTargetUpdated=True}"/>
+
+                <customcontrollers:TextButton Grid.Row="6"
+                                              Height="30"
+                                              Content="Cancel"
+                                              CornerRadius="10"
+                                              Style="{StaticResource ButtonCancelStyle}"
+                                              Command="{x:Static resources:Commands.CloseDialogCommand}">
+                    <customcontrollers:TextButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </customcontrollers:TextButton.CommandParameter>
+                </customcontrollers:TextButton>
+                <customcontrollers:TextButton Grid.Row="6"
+                                              Grid.Column="1"
+                                              Height="30"
+                                              Content="Save"
+                                              CornerRadius="10"
+                                              Style="{StaticResource ButtonProceedStyle}"
+                                              Command="{x:Static resources:Commands.ProceedDialogCommand}">
+                    <customcontrollers:TextButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </customcontrollers:TextButton.CommandParameter>
+                </customcontrollers:TextButton>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

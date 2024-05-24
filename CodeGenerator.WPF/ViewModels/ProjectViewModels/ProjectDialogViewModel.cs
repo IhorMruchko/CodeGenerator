@@ -40,17 +40,4 @@ public class ProjectDialogViewModel : DialogViewModel
             OnPropertyChanged();
         }
     }
-
-    public RelayedCommand OpenFileDialogCommand => new(OpenFileDialog);
-
-    private void OpenFileDialog(object? parameter = null)
-    {
-        var directoryDialog = new CommonOpenFileDialog()
-        {
-            IsFolderPicker = true,
-            InitialDirectory = parameter as string
-        };
-
-        if (directoryDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
-    }
 }

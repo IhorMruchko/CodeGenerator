@@ -1,6 +1,6 @@
 ﻿namespace CodeGenerator.LIB.Generation;
 
-public class GenerationItem
+public abstract class GenerationItem
 {
-    public virtual string Generate() => "";
+    public abstract string Generate();
 }

@@ -21,7 +21,8 @@ public static class GlobalExtensions
             .Select(property => property.Name)
             .Intersect(typeof(TSource).GetProperties()
             .Where(info => info.CanRead)
-            .Select(property => property.Name));
+            .Select(property => property.Name))
+            .ToArray();
         
         foreach (var prop in properties)
         {
@@ -29,6 +30,7 @@ public static class GlobalExtensions
             var sourceProperty = typeof(TSource).GetProperty(prop);
 
             if (targetProperty == null || sourceProperty == null) continue;
+            if (targetProperty.PropertyType != sourceProperty.PropertyType) continue;
 
             targetProperty.SetValue(target, sourceProperty.GetValue(source));
         }

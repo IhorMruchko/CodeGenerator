@@ -15,5 +15,8 @@
         <ResourceDictionary Source="Data/FullScreenIcon.xaml"/>
         <ResourceDictionary Source="Data/AddFileIcon.xaml"/>
         <ResourceDictionary Source="Data/FolderGridIcon.xaml"/>
+        <ResourceDictionary Source="Data/SettingIcon.xaml"/>
+        <ResourceDictionary Source="Data/PreviewIcon.xaml"/>
+        <ResourceDictionary Source="Data/EditIcon.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
