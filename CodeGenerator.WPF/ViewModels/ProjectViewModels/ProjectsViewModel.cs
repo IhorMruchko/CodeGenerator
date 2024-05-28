@@ -1,32 +1,24 @@
 ﻿using CodeGenerator.LIB.Utils;
-using CodeGenerator.LIB.Utils.Connections;
 using CodeGenerator.WPF.LIB.Base;
 using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.LIB.ViewModels;
-using CodeGenerator.WPF.Models;
 using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.Resources.Constants;
 using CodeGenerator.WPF.ViewModels.BaseModels;
 using CodeGenerator.WPF.Views;
-using System;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using CodeGenerator.WPF.Resources.Enums;
 using CodeGenerator.LIB.Extensions;
-using CodeGenerator.LIB.Generation;
 using System.Diagnostics;
 using System.Threading;
+using CodeGenerator.WPF.Resources.Databases;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
 public class ProjectsViewModel : ViewModel
 {
-    private readonly BackgroundWorker _worker;
-
-    private readonly JsonIOService<Project[]> _connection = new(Constants.APPLICATION_PATH, Constants.PROJECTS_FILENAME);
-
     private ProjectLayoutViewModel _selectedViewModel = new();
 
     public ItemsObservableCollection<ProjectViewModel> Projects { get; set; } = new();
@@ -44,8 +36,7 @@ public class ProjectsViewModel : ViewModel
 
     public ProjectsViewModel()
     {
-        _worker = BackgroundWorker.Worker;
-        Projects = new ItemsObservableCollection<ProjectViewModel>(_connection.TryRead(out var projects) ? projects?.Select(project => new ProjectViewModel(project)) ?? Array.Empty<ProjectViewModel>() : Array.Empty<ProjectViewModel>());
+        Projects = ProjectDatabase.Read();
         Projects.CollectionChanged += (_, _) => Save();
         Projects.ItemPropertyChanged += (_, e) => Save();
     }
@@ -54,7 +45,7 @@ public class ProjectsViewModel : ViewModel
     {
         if (args is not null && args.PropertyName == nameof(ProjectViewModel.Layout)) return;
 
-        _worker.AddTask(() => _connection.Write(Projects.Select(model => model.Project).ToArray()));
+        ProjectDatabase.Save(Projects.Select(p => p.Project).ToArray());
     }
 
     public RelayedCommand AddProject => new(CreateProject);
@@ -107,6 +98,7 @@ public class ProjectsViewModel : ViewModel
 
             BackgroundWorker.Worker.AddTask(() =>
             {
+                Thread.Sleep(1000);
                 var filePath = Path.Combine(path, "Program.cs");
                 File.WriteAllText(filePath, Constants.ENTRY_POINT);
             });

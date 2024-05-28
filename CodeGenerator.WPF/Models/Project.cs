@@ -1,4 +1,4 @@
-﻿using CodeGenerator.LIB.Generation;
+﻿using CodeGenerator.WPF.Models.GenerationItems;
 using System.Collections.Generic;
 
 namespace CodeGenerator.WPF.Models;
@@ -9,5 +9,5 @@ public class Project
 
     public string Directory { get; set; } = string.Empty;
 
-    public List<GenerationItem> Items { get; set; } = new();
+    public List<CommandModel> Items { get; set; } = new();
 }

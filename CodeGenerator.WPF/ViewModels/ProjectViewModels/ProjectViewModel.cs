@@ -52,7 +52,7 @@ public class ProjectViewModel : ViewModel
     public ProjectViewModel(Project? source = null)
     {
         Project = source ?? new Project();
-        Items = new(Project.Items.Where(item => item is CommandGenerationItem).Select(item => new CommandGenerationElementViewModel() { Item = (CommandGenerationItem)item }));
+        Items = new(Project.Items.Select(item => new CommandGenerationElementViewModel(item)));
         Items.CollectionChanged += (_, _) => OnPropertyChanged(nameof(Title));
         Items.ItemPropertyChanged += (_, _) => OnPropertyChanged(nameof(Title));
     }

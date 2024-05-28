@@ -2,9 +2,9 @@
 
 namespace CodeGenerator.WPF.Views;
 
-public partial class ProjectElementsView : UserControl
+public partial class InnerElementsView : UserControl
 {
-    public ProjectElementsView()
+    public InnerElementsView()
     {
         InitializeComponent();
     }

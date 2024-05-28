@@ -1,5 +1,4 @@
-﻿using CodeGenerator.LIB.Generation;
-using CodeGenerator.WPF.LIB.Commands;
+﻿using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.LIB.ViewModels;
 
 namespace CodeGenerator.WPF.ViewModels.GenerationElementViewModels;
@@ -14,6 +13,8 @@ public abstract class GenerationElementViewModel: ViewModel
 
     public RelayedCommand DeleteCommand => new(Delete);
 
+    public RelayedCommand OpenCommand => new(Open);
+
     public abstract void Generate(string dir);
 
     protected abstract void Preview(object? parameter = null);
@@ -23,4 +24,6 @@ public abstract class GenerationElementViewModel: ViewModel
     protected abstract void Edit(object? parameter = null);
 
     protected abstract void Delete(object? parameter = null);
+
+    protected abstract void Open(object? parameter = null);
 }

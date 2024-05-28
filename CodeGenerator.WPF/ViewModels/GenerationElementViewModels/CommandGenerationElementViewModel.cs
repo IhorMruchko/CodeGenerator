@@ -1,5 +1,5 @@
 ﻿using CodeGenerator.LIB.Extensions;
-using CodeGenerator.LIB.Generation;
+using CodeGenerator.WPF.LIB.Base;
 using CodeGenerator.WPF.Models.GenerationItems;
 using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.ViewModels.BaseModels;
@@ -7,12 +7,13 @@ using CodeGenerator.WPF.ViewModels.GenerationElementViewModels.Dialogs;
 using CodeGenerator.WPF.ViewModels.ProjectViewModels;
 using CodeGenerator.WPF.Views;
 using System.IO;
+using System.Linq;
 
 namespace CodeGenerator.WPF.ViewModels.GenerationElementViewModels;
 
 public class CommandGenerationElementViewModel: GenerationElementViewModel
 {
-    public CommandGenerationItem Item { get; set; } = new();
+    public CommandModel Item { get; set; } = new();
 
     public string Command 
     {
@@ -42,6 +43,21 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
             Item.Help = value;
             OnPropertyChanged();
         }
+    }
+
+    public ItemsObservableCollection<CommandInnerItemViewModel> Items { get; set; } = new();
+
+    public CommandGenerationElementViewModel(CommandModel model)
+    {
+        Item = model;
+        Items = new(model.Items.Select<CommandInnerItemModel, CommandInnerItemViewModel>(i =>
+        {
+            if (i is OverloadModel om)
+                return new OverloadViewModel() { Model = om};
+            return new InnerCommandViewModel() { Model = (InnerCommandModel)i } ;
+        }));
+        Items.CollectionChanged += (_, _) => OnPropertyChanged(nameof(Help));
+        Items.ItemPropertyChanged += (_, _) => OnPropertyChanged(nameof(Help));
     }
 
     protected override void Preview(object? parameter = null)
@@ -127,5 +143,20 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
 
         Item.NamespaceDeclaration = Path.GetFileName(dir);
         File.WriteAllText(path, Item.GenerateAttributes());
+    }
+
+    protected override void Open(object? parameter = null)
+    {
+        if (parameter
+            .ToParser()
+            .Parse<MainWindow>(out var mv)
+            .Failed) return;
+
+        mv.ChangeContent(new InnerElementsViewModel()
+        {
+            Source = Item,
+            Title = Item.Class,
+            Items = Items
+        });
     }
 }

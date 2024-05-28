@@ -1,8 +1,9 @@
 ﻿using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace CodeGenerator.WPF.Models.GenerationItems;
 
-public class CommandGenerationItem: RequestGenerationItem
+public class CommandModel: RequestGenerationItem
 {
     private const string OVERLOAD =
         "\t[Overload]" +
@@ -34,6 +35,8 @@ public class CommandGenerationItem: RequestGenerationItem
     public string Class { get; set; } = "Class1";
 
     public string Command { get; set; } = "cmd";
+
+    public List<CommandInnerItemModel> Items { get; set; } = new();
 
     public override string Generate()
     {

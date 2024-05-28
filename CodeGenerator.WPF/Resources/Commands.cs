@@ -5,7 +5,6 @@ using CodeGenerator.WPF.ViewModels.BaseModels;
 using CodeGenerator.WPF.Views;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -115,3 +114,5 @@ public static class Commands
         mv.WindowState = WindowState.Minimized;
     }
 }
+
+

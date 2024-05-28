@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="CodeGenerator.WPF.Views.InnerElementsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeGenerator.WPF.Views" 
+             xmlns:cc="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers"
+             xmlns:constants="clr-namespace:CodeGenerator.WPF.Resources.Constants"
+             xmlns:enums="clr-namespace:CodeGenerator.WPF.Resources.Enums"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0"
+                   LastChildFill="False">
+            <Label DockPanel.Dock="Left" 
+                   Content="{Binding Title}"/>
+            <cc:IconButton DockPanel.Dock="Right" 
+                           Icon="{StaticResource ListViewIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding ChangeLayoutCommand}"
+                           CommandParameter="{x:Static enums:ProjectViewLayout.LIST}"
+                           CornerRadius="50"
+                           Visibility="{x:Static constants:Constants.COMPONENT_VISIBILITY}"
+                           ToolTip="List View"
+                           Margin="10 0 20 0"/>
+
+            <cc:IconButton DockPanel.Dock="Right" Icon="{StaticResource GridViewIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding ChangeLayoutCommand}"
+                           Visibility="{x:Static constants:Constants.COMPONENT_VISIBILITY}"
+                           CommandParameter="{x:Static enums:ProjectViewLayout.GRID}"
+                           CornerRadius="50"
+                           ToolTip="Grid View"/>
+        </DockPanel>
+
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Items}"
+                  Style="{StaticResource ProjectListViewStyle}"
+                  ItemContainerStyle="{StaticResource ProjectListViewItem}"/>
+
+        <DockPanel Grid.Row="2"
+                   LastChildFill="False"
+                   HorizontalAlignment="Center">
+            <cc:IconButton Icon="{StaticResource AddProjectIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding AddInnerCommand}"
+                           CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"
+                           CornerRadius="10 10 0 0">
+            </cc:IconButton>
+            <cc:IconButton Icon="{StaticResource AddProjectIcon}"
+                           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
+                           Command="{Binding AddOverloadCommand}"
+                           CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"
+                           CornerRadius="10 10 0 0"
+                           Margin="10 0 0 0">
+            </cc:IconButton>
+        </DockPanel>
+    </Grid>
+</UserControl>

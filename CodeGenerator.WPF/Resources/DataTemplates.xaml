@@ -66,4 +66,20 @@
     <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
         <views:SettingsView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type gevm:InnerElementsViewModel}">
+        <views:InnerElementsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type gevm:InnerCommandViewModel}">
+        <views:InnerCommandView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dialogs:InnerCommandGenerationDialogViewModel}">
+        <views:CommandGenerationDialogView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type gevm:OverloadViewModel}">
+        <views:OverloadView/>
+    </DataTemplate>
 </ResourceDictionary>

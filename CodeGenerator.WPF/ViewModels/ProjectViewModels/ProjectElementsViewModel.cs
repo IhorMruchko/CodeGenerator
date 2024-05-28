@@ -41,10 +41,7 @@ public class ProjectElementsViewModel: ViewModel
 
         dialog.DialogSuccess += () =>
         {
-            Items.Add(new CommandGenerationElementViewModel
-            {
-                Item = dialog.Item
-            });
+            Items.Add(new CommandGenerationElementViewModel(dialog.Item));
             Project.Items.Add(dialog.Item);
         };
     }
