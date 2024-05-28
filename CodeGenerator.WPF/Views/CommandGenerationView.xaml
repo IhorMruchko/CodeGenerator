@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DockPanel Height="40px"
+        <DockPanel Height="40"
                    Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}, 
                                                Path=ActualWidth,
                                                Converter={StaticResource SizeConverter},
@@ -86,8 +86,14 @@
                            Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            CornerRadius="20"
                            Icon="{StaticResource GenerateIcon}"
-                           Command="{Binding GenerateCommand}"
-                           CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"/>
+                           Command="{Binding GenerateCommand}">
+                <cc:IconButton.CommandParameter>
+                    <MultiBinding Converter="{StaticResource ArrayConverter}">
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}"/>
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:ProjectElementsView}" Path="DataContext"/>
+                    </MultiBinding>
+                </cc:IconButton.CommandParameter>
+            </cc:IconButton>
         </DockPanel>
     </Grid>
 </UserControl>

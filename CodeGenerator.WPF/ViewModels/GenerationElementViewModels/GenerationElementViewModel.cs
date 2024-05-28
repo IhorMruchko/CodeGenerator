@@ -17,6 +17,10 @@ public abstract class GenerationElementViewModel: ViewModel
 
     public abstract void Generate(string dir);
 
+    public abstract string GenerateAttributes(int tabIndex);
+
+    public abstract string GenerateFluentApi();
+
     protected abstract void Preview(object? parameter = null);
     
     protected abstract void Generate(object? parameter = null);

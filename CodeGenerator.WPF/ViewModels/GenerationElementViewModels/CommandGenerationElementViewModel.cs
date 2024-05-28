@@ -8,6 +8,7 @@ using CodeGenerator.WPF.ViewModels.ProjectViewModels;
 using CodeGenerator.WPF.Views;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace CodeGenerator.WPF.ViewModels.GenerationElementViewModels;
 
@@ -45,16 +46,18 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
         }
     }
 
-    public ItemsObservableCollection<CommandInnerItemViewModel> Items { get; set; } = new();
+    public string Namespace { get; init; } = "Generation";
+
+    public ItemsObservableCollection<GenerationElementViewModel> Items { get; set; } = new();
 
     public CommandGenerationElementViewModel(CommandModel model)
     {
         Item = model;
-        Items = new(model.Items.Select<CommandInnerItemModel, CommandInnerItemViewModel>(i =>
+        Items = new(model.Items.Select<RequestGenerationItem, GenerationElementViewModel>(i =>
         {
             if (i is OverloadModel om)
                 return new OverloadViewModel() { Model = om};
-            return new InnerCommandViewModel() { Model = (InnerCommandModel)i } ;
+            return new InnerCommandViewModel((CommandModel)i);
         }));
         Items.CollectionChanged += (_, _) => OnPropertyChanged(nameof(Help));
         Items.ItemPropertyChanged += (_, _) => OnPropertyChanged(nameof(Help));
@@ -69,8 +72,8 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
 
         var preview = new PreviewGenerationDialogViewModel()
         {
-            AttributesGeneration = Item.GenerateAttributes(),
-            FluentApiGeneration = Item.GenerateFluent()
+            AttributesGeneration = GenerateAttributes(0),
+            FluentApiGeneration = ""
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, preview });
@@ -81,13 +84,14 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
         if (parameter
            .ToParser()
            .Parse(out MainWindow mv)
+           .Parse(out ProjectElementsViewModel pevm)
            .Failed) return;
 
         var selectTypeDialog = new SelectTypeDialogViewModel();
 
         selectTypeDialog.DialogSuccess += () =>
         {
-            Generate(selectTypeDialog.Directory);
+            Generate(pevm.Project.Directory);
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, selectTypeDialog });
@@ -141,8 +145,7 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
         if (!Directory.Exists(dir)) return;
         var path = Path.Combine(dir, Class + ".cs");
 
-        Item.NamespaceDeclaration = Path.GetFileName(dir);
-        File.WriteAllText(path, Item.GenerateAttributes());
+        File.WriteAllText(path, GenerateAttributes(0));
     }
 
     protected override void Open(object? parameter = null)
@@ -152,11 +155,66 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
             .Parse<MainWindow>(out var mv)
             .Failed) return;
 
-        mv.ChangeContent(new InnerElementsViewModel()
+        mv.ChangeContent(new InnerElementsViewModel(Item)
         {
             Source = Item,
             Title = Item.Class,
-            Items = Items
+            Items = Items,
+            
         });
+    }
+
+    public override string GenerateAttributes(int tabIndex)
+    {
+        return $@"using FluentRequests.Lib.Attributes.RoutingAttributes;
+
+namespace {Namespace};
+
+[Command(""{Item.Command}"")]
+[Help(""{Item.Help}"")]
+public class {Item.Class}
+{{
+{GenerateOverloads(tabIndex+1)}
+}}
+";
+    }
+
+    public override string GenerateFluentApi()
+    {
+        return "";
+    }
+
+    private string GenerateOverloads(int tabIndex)
+    {
+        var overloads = Items.Where(i => i is OverloadViewModel);
+        var innerCommands = Items.Where(i => i is InnerCommandViewModel);
+        
+        if (!overloads.Any() && !innerCommands.Any())
+        {
+            return @$"{new('\t', tabIndex)}[Overload]
+{new('\t', tabIndex)}[Help(""Empty overload"")]
+{new('\t', tabIndex)}public static string EmptyOverload()
+{new('\t', tabIndex)}{{
+{new('\t', tabIndex + 1)}return typeof({Item.Class}).ToString();
+{new('\t', tabIndex)}}}";
+        }
+
+        var result = new StringBuilder();
+        if (overloads.Any())
+        {
+            foreach(var overload in overloads)
+            {
+                result.Append('\n').Append(overload.GenerateAttributes(tabIndex)).Append('\n');
+            }
+        }
+
+        if (innerCommands.Any())
+        {
+            foreach (var command in innerCommands)
+            {
+                result.Append('\n').Append(command.GenerateAttributes(tabIndex)).Append('\n');
+            }
+        }
+        return result.ToString();
     }
 }

@@ -3,36 +3,36 @@ using CodeGenerator.WPF.ViewModels.BaseModels;
 
 namespace CodeGenerator.WPF.ViewModels.GenerationElementViewModels.Dialogs;
 
-public class InnerCommandGenerationDialogViewModel: DialogViewModel
+public class OverloadDialogViewModel : DialogViewModel
 {
-    public InnerCommandModel Source { get; set; } = new();
+    public OverloadModel Item { get; set; } = new();
 
-    public string Command
+    public string MethodName
     {
-        get => Source.Command;
+        get => Item.MethodName;
         set
         {
-            Source.Command = value;
+            Item.MethodName = value;
+            OnPropertyChanged();
+        }
+    } 
+
+    public string Help
+    {
+        get => Item.Help;
+        set
+        {
+            Item.Help = value;
             OnPropertyChanged();
         }
     }
 
-    public string Class
+    public string MethodContent
     {
-        get => Source.Class;
+        get => Item.MethodContent;
         set
         {
-            Source.Class = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public string? Help
-    {
-        get => Source.Help;
-        set
-        {
-            Source.Help = value;
+            Item.MethodContent = value;
             OnPropertyChanged();
         }
     }

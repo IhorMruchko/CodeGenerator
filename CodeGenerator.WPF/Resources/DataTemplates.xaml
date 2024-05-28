@@ -75,11 +75,11 @@
         <views:InnerCommandView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type dialogs:InnerCommandGenerationDialogViewModel}">
-        <views:CommandGenerationDialogView/>
-    </DataTemplate>
-
     <DataTemplate DataType="{x:Type gevm:OverloadViewModel}">
         <views:OverloadView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dialogs:OverloadDialogViewModel}">
+        <views:OverloadDialogView/>
     </DataTemplate>
 </ResourceDictionary>

@@ -2,17 +2,6 @@
 
 namespace CodeGenerator.WPF.ViewModels.GenerationElementViewModels.Dialogs;
 
-public class SelectTypeDialogViewModel: DialogViewModel, IDirectoryProvider
+public class SelectTypeDialogViewModel: DialogViewModel
 {
-    private string _directory = string.Empty;
-    
-    public string Directory 
-    { 
-        get => _directory;
-        set
-        {
-            _directory = value;
-            OnPropertyChanged();
-        }
-    }
 }

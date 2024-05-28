@@ -6,16 +6,32 @@ using CodeGenerator.WPF.Models.GenerationItems;
 using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.ViewModels.GenerationElementViewModels.Dialogs;
 using CodeGenerator.WPF.Views;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CodeGenerator.WPF.ViewModels.GenerationElementViewModels;
 
 public class InnerElementsViewModel : ViewModel
 {
-    public string Title { get; init; }
+    public string? Title { get; init; }
 
     public CommandModel Source { get; init; }
 
-    public ItemsObservableCollection<CommandInnerItemViewModel> Items { get; set; } = new();
+    public ItemsObservableCollection<GenerationElementViewModel> Items { get; set; } = new();
+
+    public InnerElementsViewModel(CommandModel source)
+    {
+        Title = source.Class;
+        Source = source;
+        Items = new(Source.Items.Select<RequestGenerationItem, GenerationElementViewModel>(i =>
+        {
+            if (i is OverloadModel om)
+                return new OverloadViewModel() { Model = om };
+            return new InnerCommandViewModel((CommandModel)i);
+        }));
+        Items.CollectionChanged += (_, _) => OnPropertyChanged(nameof(Source.Class));
+        Items.ItemPropertyChanged += (_, _) => OnPropertyChanged(nameof(Source.Class));
+    }
 
     public RelayedCommand AddOverloadCommand => new(AddOverload);
 
@@ -23,8 +39,23 @@ public class InnerElementsViewModel : ViewModel
 
     private void AddOverload(object? parameter = null)
     {
-        Source.Items.Add(new OverloadModel());
-        Items.Add(new OverloadViewModel());
+        if (parameter
+            .ToParser()
+            .Parse(out MainWindow mv)
+            .Failed) return;
+
+        var dialog = new OverloadDialogViewModel();
+
+        dialog.DialogSuccess += () =>
+        {
+            Source.Items.Add(dialog.Item);
+            Items.Add(new OverloadViewModel()
+            {
+                Model = dialog.Item
+            });
+        };
+
+        Commands.OpenDialogCommand.Execute(new object[] { mv, dialog });
     }
 
     private void AddInner(object? parameter = null)
@@ -34,16 +65,13 @@ public class InnerElementsViewModel : ViewModel
             .Parse(out MainWindow mv)
             .Failed) return;
 
-        var dialog = new InnerCommandGenerationDialogViewModel();
+        var dialog = new CommandGenerationDialogViewModel();
 
         dialog.DialogSuccess += () =>
         {
             
-            Source.Items.Add(dialog.Source);
-            Items.Add(new InnerCommandViewModel()
-            {
-                Model = dialog.Source
-            });
+            Source.Items.Add(dialog.Item);
+            Items.Add(new InnerCommandViewModel(dialog.Item));
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, dialog });

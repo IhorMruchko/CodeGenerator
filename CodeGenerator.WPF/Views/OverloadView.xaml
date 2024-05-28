@@ -10,13 +10,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DockPanel Height="40px"
-                   Background="#73B090EE"
                Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}, 
                                                Path=ActualWidth,
                                                Converter={StaticResource SizeConverter},
                                                ConverterParameter={StaticResource ProjectListViewSpacing}}"
                LastChildFill="False">
-            <Label Content="{Binding Title}"
+            <Label Content="{Binding MethodName}"
                HorizontalContentAlignment="Left"
                VerticalContentAlignment="Center"
                FontSize="16"
@@ -37,7 +36,6 @@
             <controls:IconButton DockPanel.Dock="Right" 
                              Margin="10 0 0 0"
                              CornerRadius="20"
-                             Visibility="{x:Static resources:Constants.COMPONENT_VISIBILITY}"
                              Icon="{StaticResource EditIcon}" 
                              Command="{Binding EditCommand}"
                              CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"
