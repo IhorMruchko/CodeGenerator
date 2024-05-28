@@ -7,7 +7,7 @@ namespace CodeGenerator.LIB.Utils
 {
     public class BackgroundWorker
     {
-        private readonly BlockingCollection<Task> _tasksQueue = new BlockingCollection<Task>();
+        private readonly BlockingCollection<Task> _tasksQueue = new();
 
         private readonly Thread _mainThread;
 

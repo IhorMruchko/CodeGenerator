@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CodeGenerator.WPF.Views" 
              xmlns:customcontrollers="clr-namespace:CodeGenerator.WPF.Resources.CustomControllers"
              xmlns:resources="clr-namespace:CodeGenerator.WPF.Resources"
+             xmlns:constants="clr-namespace:CodeGenerator.WPF.Resources.Constants"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{DynamicResource Dialog.Static.TransparentBackground}"
@@ -56,7 +57,8 @@
                                  Width="440"/>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Fluent API">
+                <TabItem Header="Fluent API"
+                         Visibility="{x:Static constants:Constants.COMPONENT_VISIBILITY}">
                     <TextBlock TextAlignment="Left"
                                Height="300"
                                Text="{Binding FluentApiGeneration}"

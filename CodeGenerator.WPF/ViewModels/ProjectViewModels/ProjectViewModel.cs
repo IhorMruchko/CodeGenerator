@@ -1,5 +1,6 @@
 ﻿using CodeGenerator.LIB.Extensions;
 using CodeGenerator.LIB.Generation;
+using CodeGenerator.LIB.Utils;
 using CodeGenerator.WPF.LIB.Base;
 using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.LIB.ViewModels;
@@ -9,8 +10,13 @@ using CodeGenerator.WPF.Resources;
 using CodeGenerator.WPF.Resources.Constants;
 using CodeGenerator.WPF.Resources.Enums;
 using CodeGenerator.WPF.ViewModels.GenerationElementViewModels;
+using CodeGenerator.WPF.ViewModels.GenerationElementViewModels.Dialogs;
 using CodeGenerator.WPF.Views;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
@@ -55,7 +61,19 @@ public class ProjectViewModel : ViewModel
 
     public RelayedCommand OpenProjectCommand => new(OpenProject);
 
-    public RelayedCommand GenerateCommand => new(Generate);
+    public RelayedCommand GenerateAllCommand => new(Generate);
+
+    public RelayedCommand OpenInFileExporerCommand => new(OpenInFileExplorer, CanOpenInFileExplorer);
+
+    public RelayedCommand RunCommand => new(Run);
+
+    private void Run(object? parameter = null) 
+    {
+        Process.Start(new ProcessStartInfo("dotnet", $"run")
+        {
+            WorkingDirectory = Project.Directory,
+        });
+    }
 
     private void OpenEditDialog(object? parameter = null) 
     {
@@ -93,6 +111,33 @@ public class ProjectViewModel : ViewModel
 
     private void Generate(object? parameter = null)
     {
+        if (parameter
+            .ToParser()
+            .Parse(out MainWindow mv)
+            .Failed) return;
 
+        var selectTypeDialog = new SelectTypeDialogViewModel();
+
+        selectTypeDialog.DialogSuccess += () =>
+        {
+            var filePath = Path.Combine(Project.Directory, "Program.cs");
+            File.WriteAllText(filePath, Constants.ENTRY_POINT);
+            foreach (var item in Items)
+            {
+                item.Generate(Project.Directory);
+            }
+        };
+
+        Commands.OpenDialogCommand.Execute(new object[] { mv, selectTypeDialog });
+    }
+
+    public void OpenInFileExplorer(object? parameter)
+    {
+        Process.Start("explorer.exe", Project.Directory);
+    }
+
+    public bool CanOpenInFileExplorer(object? parameter)
+    {
+        return Directory.Exists(Project.Directory);
     }
 }

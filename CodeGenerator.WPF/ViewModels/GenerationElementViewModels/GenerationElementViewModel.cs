@@ -14,6 +14,8 @@ public abstract class GenerationElementViewModel: ViewModel
 
     public RelayedCommand DeleteCommand => new(Delete);
 
+    public abstract void Generate(string dir);
+
     protected abstract void Preview(object? parameter = null);
     
     protected abstract void Generate(object? parameter = null);

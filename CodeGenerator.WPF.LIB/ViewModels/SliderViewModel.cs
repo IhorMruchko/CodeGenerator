@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace CodeGenerator.WPF.LIB.ViewModels;
 
-public class SliderVM : ViewModel
+public class SliderViewModel : ViewModel
 {
     private ViewModel? _selectedViewModel;
 
@@ -24,7 +24,7 @@ public class SliderVM : ViewModel
         }
     }
 
-    public SliderVM AddNext(ViewModel nextViewModel)
+    public SliderViewModel AddNext(ViewModel nextViewModel)
     {
         if (_selectedViewModel is null)
             SelectedViewModel = nextViewModel;
@@ -33,7 +33,7 @@ public class SliderVM : ViewModel
         return this;
     }
 
-    public SliderVM AddPrevious(ViewModel previousViewModel)
+    public SliderViewModel AddPrevious(ViewModel previousViewModel)
     {
         if (_selectedViewModel is null)
             SelectedViewModel = previousViewModel;

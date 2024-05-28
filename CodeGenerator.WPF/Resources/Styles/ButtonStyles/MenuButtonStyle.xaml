@@ -12,17 +12,19 @@
                 <DataTemplate>
                     <DockPanel Width="{Binding RelativeSource={RelativeSource AncestorType=DockPanel, Mode=FindAncestor}, Path=Width}">
                         <Image Source="{Binding Path=Icon, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
-                               Height="{Binding Path=Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
-                               Width="30"/>
-                        <Label Content="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
-                               HorizontalContentAlignment="Center"
+                               Height="{Binding Path=Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}, Converter={StaticResource IconSizeConverter}}"
+                               Width="{Binding Path=Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}, Converter={StaticResource IconSizeConverter}}"
+                               Margin="5 0 0 0"/>
+                        <Label HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"
+                               Margin="10 0"
+                               Content="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
                                Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
                                FontFamily="{Binding Path=FontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
                                FontSize="{Binding Path=FontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
                                FontStretch="{Binding Path=FontStretch, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
                                FontStyle="{Binding Path=FontStyle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
-                               FontWeight="{Binding Path=FontWeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"
-                               VerticalContentAlignment="Center"/>
+                               FontWeight="{Binding Path=FontWeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MenuButton}}"/>
                     </DockPanel>
                 </DataTemplate>
             </Setter.Value>

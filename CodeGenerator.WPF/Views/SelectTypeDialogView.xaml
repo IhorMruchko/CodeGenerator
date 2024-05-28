@@ -83,7 +83,7 @@
                                                   Icon="{StaticResource OpenFolderIcon}"
                                                   Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                                                   Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
-                                                  Command="{Binding OpenDirectoryDialogCommand}"/>
+                                                  Command="{x:Static resources:Commands.OpenDirectoryDialogCommand}"/>
                     <TextBlock Text="{Binding Directory}"></TextBlock>
                 </DockPanel>
 

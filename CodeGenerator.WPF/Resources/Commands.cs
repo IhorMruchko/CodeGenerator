@@ -3,7 +3,9 @@ using CodeGenerator.WPF.LIB.Commands;
 using CodeGenerator.WPF.Resources.CustomControllers;
 using CodeGenerator.WPF.ViewModels.BaseModels;
 using CodeGenerator.WPF.Views;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -24,6 +26,25 @@ public static class Commands
     public static RelayedCommand CloseDialogCommand => new(CloseDialog);
 
     public static RelayedCommand ProceedDialogCommand => new(ProceedDialog);
+
+    public static RelayedCommand OpenDirectoryDialogCommand => new(OpenDirectoryDialog);
+
+    private static void OpenDirectoryDialog(object? parameter)
+    {
+        if (parameter
+            .ToParser()
+            .Parse(out string dir)
+            .Parse(out IDirectoryProvider prov)
+            .Failed) return;
+        var directoryDialog = new CommonOpenFileDialog()
+        {
+            IsFolderPicker = true,
+            InitialDirectory = dir
+        };
+
+        if (directoryDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
+        prov.Directory = directoryDialog.FileName!;
+    }
 
     private static void OpenDialog(object? parameter=null)
     {

@@ -7,6 +7,10 @@ namespace CodeGenerator.WPF.Resources.Constants;
 
 public static class Constants
 {
+    public static readonly string PROJ_FILE_CONTENT = "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net6.0</TargetFramework>\n    <ImplicitUsings>enable</ImplicitUsings>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n\n    <ItemGroup>\n    <PackageReference Include=\"FluentRequests.Lib\" Version=\"1.0.4\" />\n  </ItemGroup>\n\n</Project>";
+
+    public static readonly string ENTRY_POINT = "using FluentRequests.Lib.Extensions;\nusing FluentRequests.Lib.Registering;\n\nvar register = RegistrationManager.RoutingRegister.AddFromAssembly<Program>();\n\nwhile(true)\n{\n    var message = register.Execute(Console.ReadLine()?.Split() ?? Array.Empty<string>());\n    if (message.Length > 0)\n    {\n        Console.WriteLine(message);\n    }\n}";
+
     public static readonly string APPLICATION_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
     public static readonly string APPLICATION_NAME = "Code Generator";

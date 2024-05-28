@@ -82,6 +82,16 @@
                                Text="Projects"
                                CornerRadius="7">
             </models:MenuButton>
+
+            <models:MenuButton DockPanel.Dock="Bottom"
+                               Height="30"
+                               Command="{Binding Slider.SelectConcreteCommand}"
+                               CommandParameter="{x:Type viewmodels:SettingsViewModel}"
+                               Icon="{StaticResource SettingsIcon}"
+                               Text="Settings"
+                               Visibility="{x:Static constants:Constants.COMPONENT_VISIBILITY}"
+                               CornerRadius="7">
+            </models:MenuButton>
         </DockPanel>
 
         <ContentControl Grid.Column="1"

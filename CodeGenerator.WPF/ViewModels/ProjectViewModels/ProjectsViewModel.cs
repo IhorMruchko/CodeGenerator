@@ -17,6 +17,7 @@ using CodeGenerator.WPF.Resources.Enums;
 using CodeGenerator.LIB.Extensions;
 using CodeGenerator.LIB.Generation;
 using System.Diagnostics;
+using System.Threading;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
@@ -53,7 +54,7 @@ public class ProjectsViewModel : ViewModel
     {
         if (args is not null && args.PropertyName == nameof(ProjectViewModel.Layout)) return;
 
-        _worker.AddTask(new Task(() => _connection.Write(Projects.Select(model => model.Project).ToArray())));
+        _worker.AddTask(() => _connection.Write(Projects.Select(model => model.Project).ToArray()));
     }
 
     public RelayedCommand AddProject => new(CreateProject);
@@ -78,6 +79,38 @@ public class ProjectsViewModel : ViewModel
 
         dialog.DialogSuccess += () =>
         {
+            var path = Path.Combine(dialog.Directory, dialog.Title);
+            dialog.Project.Directory = path;
+            BackgroundWorker.Worker.AddTask(() =>
+            {
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                var filePath = Path.Combine(path, dialog.Title + ".csproj");
+                Process.Start(new ProcessStartInfo("dotnet", $"new sln --output {path}")
+                {
+                    CreateNoWindow = true
+                });
+
+                File.WriteAllText(filePath, Constants.PROJ_FILE_CONTENT);
+            });
+
+            BackgroundWorker.Worker.AddTask(() =>
+            {
+                Thread.Sleep(1000);
+                Process.Start(new ProcessStartInfo("dotnet", $"sln add {dialog.Title}.csproj")
+                {
+                    WorkingDirectory = path,
+                    CreateNoWindow = true,
+                });
+            });
+
+            BackgroundWorker.Worker.AddTask(() =>
+            {
+                var filePath = Path.Combine(path, "Program.cs");
+                File.WriteAllText(filePath, Constants.ENTRY_POINT);
+            });
+
             Projects.Add(new ProjectViewModel(dialog.Project));
         };
     }
@@ -94,6 +127,8 @@ public class ProjectsViewModel : ViewModel
         confrimDialog.DialogSuccess += () =>
         {
             Projects.Remove(pvm);
+            if (Directory.Exists(pvm.Project.Directory))
+                Directory.Delete(pvm.Project.Directory, true);
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, confrimDialog });

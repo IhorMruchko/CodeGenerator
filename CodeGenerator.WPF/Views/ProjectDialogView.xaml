@@ -51,6 +51,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -63,7 +64,27 @@
                          Grid.Row="1"
                          Grid.ColumnSpan="2"
                          Text="{Binding Path=Title, Mode=TwoWay, NotifyOnTargetUpdated=True}"/>
-                <customcontrollers:TextButton Grid.Row="4"
+
+                <Label Grid.Row="3"
+                       Content="Directory"/>
+                <DockPanel Grid.Row="4" 
+                           Grid.ColumnSpan="2"
+                           Height="30"
+                           Margin="0 0 0 20">
+                    <customcontrollers:IconButton DockPanel.Dock="Right" Icon="{StaticResource OpenFolderIcon}"
+                                                  Width="30"
+                                                  CornerRadius="10"
+                                                  Command="{x:Static resources:Commands.OpenDirectoryDialogCommand}">
+                        <customcontrollers:IconButton.CommandParameter>
+                            <MultiBinding Converter="{StaticResource ArrayConverter}">
+                                <Binding Path="Directory"/>
+                                <Binding/>
+                            </MultiBinding>
+                        </customcontrollers:IconButton.CommandParameter>
+                    </customcontrollers:IconButton>
+                    <TextBox Text="{Binding Directory}"/>
+                </DockPanel>
+                <customcontrollers:TextButton Grid.Row="5"
                                               Height="30"
                                               Content="Cancel"
                                               CornerRadius="10"
@@ -76,7 +97,7 @@
                         </MultiBinding>
                     </customcontrollers:TextButton.CommandParameter>
                 </customcontrollers:TextButton>
-                <customcontrollers:TextButton Grid.Row="4"
+                <customcontrollers:TextButton Grid.Row="5"
                                               Grid.Column="1"
                                               Height="30"
                                               Content="Save"
@@ -90,7 +111,9 @@
                         </MultiBinding>
                     </customcontrollers:TextButton.CommandParameter>
                 </customcontrollers:TextButton>
+                
             </Grid>
+            
         </StackPanel>
     </Grid>
 </UserControl>

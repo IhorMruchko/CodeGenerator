@@ -70,7 +70,7 @@
                            Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}"
                            CornerRadius="20"
-                           Icon="{StaticResource PreviewIcon}"
+                           Icon="{StaticResource GenerateIcon}"
                            Command="{Binding GenerateCommand}"
                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}"/>
         </DockPanel>

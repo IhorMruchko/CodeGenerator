@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="RunProjectIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup Opacity="1">
+                        <GeometryDrawing Brush="#FF000000" Geometry="F0 M16,16z M0,0z M6,11L11,8 6,5 6,11z M8,14.6C4.4,14.6 1.4,11.6 1.4,8 1.4,4.4 4.4,1.4 8,1.4 11.6,1.4 14.6,4.4 14.6,8 14.6,11.6 11.6,14.6 8,14.6L8,14.6z M8,0C3.6,0 0,3.6 0,8 0,12.4 3.6,16 8,16 12.4,16 16,12.4 16,8 16,3.6 12.4,0 8,0L8,0z" />
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

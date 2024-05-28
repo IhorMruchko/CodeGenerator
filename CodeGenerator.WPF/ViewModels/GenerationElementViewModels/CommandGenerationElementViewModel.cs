@@ -71,12 +71,7 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
 
         selectTypeDialog.DialogSuccess += () =>
         {
-            if (!Directory.Exists(selectTypeDialog.Directory)) return;
-            var path = Path.Combine(selectTypeDialog.Directory, Class + ".cs");
-          
-            Item.NamespaceDeclaration = Path.GetFileName(selectTypeDialog.Directory);
-            File.WriteAllText(path, Item.GenerateAttributes());
-
+            Generate(selectTypeDialog.Directory);
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, selectTypeDialog });
@@ -123,5 +118,14 @@ public class CommandGenerationElementViewModel: GenerationElementViewModel
         };
 
         Commands.OpenDialogCommand.Execute(new object[] { mv, confirmationDialog });
+    }
+
+    public override void Generate(string dir)
+    {
+        if (!Directory.Exists(dir)) return;
+        var path = Path.Combine(dir, Class + ".cs");
+
+        Item.NamespaceDeclaration = Path.GetFileName(dir);
+        File.WriteAllText(path, Item.GenerateAttributes());
     }
 }

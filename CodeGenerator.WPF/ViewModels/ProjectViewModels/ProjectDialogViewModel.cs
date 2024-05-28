@@ -1,13 +1,13 @@
-﻿using CodeGenerator.WPF.LIB.Commands;
-using CodeGenerator.WPF.Models;
+﻿using CodeGenerator.WPF.Models;
 using CodeGenerator.WPF.ViewModels.BaseModels;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace CodeGenerator.WPF.ViewModels.ProjectViewModels;
 
-public class ProjectDialogViewModel : DialogViewModel
+public class ProjectDialogViewModel : DialogViewModel, IDirectoryProvider
 {
     private string? _dialogTitle;
+
+    private string? _directory;
 
     public ProjectDialogViewModel()
     {
@@ -37,6 +37,16 @@ public class ProjectDialogViewModel : DialogViewModel
         set
         {
             Project.Title = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Directory
+    {
+        get => Project.Directory;
+        set
+        {
+            Project.Directory = value;
             OnPropertyChanged();
         }
     }

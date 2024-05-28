@@ -5,7 +5,7 @@ namespace CodeGenerator.WPF.ViewModels;
 
 public class MainWindowViewModel : ViewModel
 {
-    public SliderVM Slider { get; set; } = new SliderVM().AddNext(new ProjectsViewModel());
+    public SliderViewModel Slider { get; set; } = new SliderViewModel().AddNext(new ProjectsViewModel()).AddNext(new SettingsViewModel());
     
     public MainWindowViewModel()
     {

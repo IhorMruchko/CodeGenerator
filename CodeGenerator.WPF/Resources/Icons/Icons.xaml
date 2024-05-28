@@ -18,5 +18,7 @@
         <ResourceDictionary Source="Data/SettingIcon.xaml"/>
         <ResourceDictionary Source="Data/PreviewIcon.xaml"/>
         <ResourceDictionary Source="Data/EditIcon.xaml"/>
+        <ResourceDictionary Source="Data/GenerateIcon.xaml"/>
+        <ResourceDictionary Source="Data/RunProjectIcon.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
